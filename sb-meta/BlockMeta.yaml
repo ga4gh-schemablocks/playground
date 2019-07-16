@@ -13,7 +13,7 @@ meta:
       url: 'https://schemablocks.org'
   sb_status: playground
 description: |
-  BlockMeta defines thr format of the SchemaBlocks metadata, used to describe
+  BlockMeta defines the format of the SchemaBlocks metadata, used to describe
   e.g. the given block's provenance, scope, external usage.
 type: object
 properties:
@@ -37,7 +37,7 @@ properties:
       "$ref": https://schemablocks.org/schemas/ga4gh/ExternalReference/v0.0.1
     examples:
       - description: "Original GA4GH schema"
-        url: 'https://github.com/ga4gh/ga4gh-schemas/blob/master/src/main/proto/ga4gh/bio_metadata.proto#L111'
+        id: 'https://github.com/ga4gh/ga4gh-schemas/blob/master/src/main/proto/ga4gh/bio_metadata.proto#L111'
   use_cases:
     description: |
       With the `use_cases` attribute one can provide links and descriptions
@@ -49,7 +49,7 @@ properties:
       "$ref": https://schemablocks.org/schemas/ga4gh/ExternalReference/v0.0.1
     examples:
     - description: Phenopackets
-      url: 'https://github.com/phenopackets/phenopacket-schema/blob/master/docs/age.rst'
+      id: 'https://github.com/phenopackets/phenopacket-schema/blob/master/docs/age.rst'
     - description: "Progenetix database schema (Beacon+ backend)"
       url: 'https://github.com/progenetix/schemas/tree/master/main/yaml'
   sb_status:
@@ -75,6 +75,12 @@ properties:
         - a schema block with recommended use
         - stable through minor version changes
         - has to be used in at least 2 approved / under review GA4GH products
+    type: string
+    examples:
+      - core
+      - implementation
+      - proposed
+      - playground
 required:
   - sb_status
   - contributors
