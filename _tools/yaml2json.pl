@@ -44,7 +44,18 @@ sub _process_yaml {
   print "Reading YAML file \"$yaml_file\"\n";
 
   my $data      =   LoadFile($yaml_file);
+# TODO: Ist this way to get the class name safe?
   my $className	=		(split('/', $data->{'$id'}))[-2];
+  
+=podmd
+The class name is extracted from the __properly formatted__ "$id" value.
+
+Processing is skipped if the class name does not consist of word character, or
+if a filter had been provided and the class name doesn't match.
+
+=cut
+
+  if ($className !~ /^\w+?$/) { return }
   
 	if ($args{-filter} =~ /.../) {
 		if ($className !~ /$args{-filter}/) {
@@ -88,6 +99,8 @@ markdown document.
 	$markdown 		.=  "\n* ".$data->{meta}->{sb_status}."  \n";
   $markdown  		.=  <<END;
 
+$config->{jekyll_excerpt_separator}
+
 ### Properties
 
 <table>
@@ -106,10 +119,15 @@ END
     	$type			=		$data->{properties}->{$property}->{items};
     }
     if (ref($type) =~ /HASH/) {
-   		$typeLab	.=	'['.(keys %$type)[0].']('.$type->{ (keys %$type)[0] }.')' }
+    	my $key		=		(keys %$type)[0];
+    	my $link	=		$type->{ $key };
+# TODO: currently the link to the "official" spec is made relative, since this
+# hasn't been finalized...
+			$link			=~	s/^.+?ga4gh/./;
+			$link			=~	s/\/[^\/]+?$/.html/;
+   		$typeLab	.=	$key.': <a href="'.$link.'" target="_BLANK">'.$link.'</a>' }
     else {
     	$typeLab	.=	$type }
-    my $description  =   markdown($data->{properties}->{$property}->{'description'});
 
     $markdown .=  <<END;
   <tr>
@@ -136,7 +154,13 @@ descriptions and examples.
     	$type			=		$data->{properties}->{$property}->{items};
     }
     if (ref($type) =~ /HASH/) {
-   		$typeLab	.=	(keys %$type)[0].': ['.$type->{ (keys %$type)[0] }.']('.$type->{ (keys %$type)[0] }.')' }
+    	my $key		=		(keys %$type)[0];
+    	my $link	=		$type->{ $key };
+# TODO: currently the link to the "official" spec is made relative, since this
+# hasn't been finalized...
+			$link			=~	s/^.+?ga4gh/./;
+			$link			=~	s/\/[^\/]+?$/.html/;
+   		$typeLab	.=	$key.': ['.$link.']('.$link.')' }
     else {
     	$typeLab	.=	$type }
     my $description =   $data->{properties}->{$property}->{'description'};
@@ -280,7 +304,7 @@ sub _create_jekyll_header {
 title: '$className'
 layout: default
 permalink: "/schemas/blocks/$className.html"
-excerpt_separator: <!--more-->
+excerpt_separator: $config->{jekyll_excerpt_separator}
 category:
   - schemas
 tags:
