@@ -96,7 +96,7 @@ markdown document.
 				$markdown 	.=  "\n* ".$this."  ";
 	}}}
 	$markdown 		.=  "\n\n##### {S}[B] Status  \n";
-	$markdown 		.=  "\n* ".$data->{meta}->{sb_status}."  \n";
+	$markdown 		.=  "\n* [".$data->{meta}->{sb_status}."](".$config->{links}->{sb_status_levels}.")  \n";
   $markdown  		.=  <<END;
 
 $config->{jekyll_excerpt_separator}
@@ -173,20 +173,19 @@ descriptions and examples.
 
 $description
 
-##### $property Examples
-
 END
-		
-		foreach (@{ $data->{properties}->{$property}->{'examples'} }) {
-		    $markdown   .=  "```\n"._reformat_example($_)."\n```\n";		
-		}
-	}
 
-	$markdown 		.=  "\n### $className Examples  \n\n";
+		$markdown 	.=  "##### `$property` Value "._pluralize("Example", $data->{properties}->{$property}->{'examples'})."  \n\n";	
+		foreach (@{ $data->{properties}->{$property}->{'examples'} }) {
+		  $markdown .=  "```\n".JSON::XS->new->pretty( 1 )->allow_nonref->encode($_)."```\n";		
+		}
+
+	}
    
 	if ($data->{'examples'}) {
+		$markdown 	.=  "\n### `$className` Value "._pluralize("Example", $data->{'examples'})."  \n\n";
 		foreach (@{ $data->{'examples'} }) {
-		    $markdown   .=  "```\n"._reformat_example($_)."\n```\n";		
+		    $markdown   .=  "```\n".JSON::XS->new->pretty( 1 )->allow_nonref->encode($_)."```\n";		
 		}
 	}
 
@@ -198,7 +197,6 @@ END
 =cut
 
   my $printout    =   JSON::XS->new->pretty( 1 )->canonical()->encode( $data->{examples} )."\n";
-	$printout       =   _clean_numbers_booleans_from_text($printout);
 	open  (FILE, ">", $expl_file) || warn 'output file '.$expl_file.' could not be created.';
 	print FILE  $printout;
 	close FILE;
@@ -212,44 +210,6 @@ END
   open  (FILE, ">", $md_web_file) || warn 'output file '. $md_web_file.' could not be created.';
   print FILE  $jekyll_header.$markdown."\n";
   close FILE;
-
-}
-
-################################################################################
-
-sub _reformat_example {
-
-  my $example   =   shift;
-  my $md_example    =   Dumper($example);
-  $md_example	  =~  s/\$VAR1 \= //;
-  $md_example	  =~  s/\n {8}/\n/g;
-  $md_example	  =~  s/\;//g;
-  $md_example	  =~  s/\n$//;
-  if (ref( $example) eq "ARRAY" || ref( $example) eq "HASH") {
-    $md_example	=		$md_example }
-  else {
-    $md_example	=~  s/\'//g;
-    $md_example	=		'"'.$md_example.'"' }
-
-  return $md_example;
-
-}
-
-################################################################################
-
-sub _clean_numbers_booleans_from_text {
-
-  my $printout  =   shift;
-
-  my @cleaned;
-
-  foreach my $line (split("\n", $printout)) {
-    $line       =~  s/\=\>/:/;
-    $line       =~  s/\: [\'\"](\d+?(?:\.\d+?)?)[\'\"]/: $1/;
-    push(@cleaned, $line);
-  }
-
-  return join("\n", @cleaned);
 
 }
 
@@ -310,7 +270,17 @@ category:
 tags:
   - code
 ---
+
 END
 
+}
+
+################################################################################
+
+sub _pluralize {
+	my $word			=		shift;
+	my $list			=		shift;
+	if (@$list > 1) { $word .= 's' }	
+	return $word;
 }
 
