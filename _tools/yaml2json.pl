@@ -82,21 +82,27 @@ markdown document.
 
   my $markdown  =   "## $className\n\n### SchemaBlocks Metadata";
 
-	foreach my $attr (qw(contributors provenance used_by)) {
+	foreach my $attr (qw(provenance used_by contributors)) {
 		if ($data->{meta}->{$attr}) {
 			my $label =   $attr;
 			$label  	=~  s/\_/ /g;
 			$markdown .=  "\n\n##### ".ucfirst($label)."  \n";
 			foreach (@{$data->{meta}->{$attr}}) {
-				my $this		=   $_->{description} ;
-				if ($_->{id} =~ /\/\/\w/) {
-					$this 		=   '['.$this.']('.$_->{id}.')' }
-				elsif ($_->{id} =~ /\w/) {
-					$this 		.=  ' ('.$_->{id}.')' }
+				my $this		=   $_->{description};
+=podmd
+The script performs a CURIE to URL expansion for prefixes defined in the
+configuration file and links e.g. the 
+
+=cut
+				my $id			=		_expand_CURIEs($config, $_->{id});
+				if ($id =~ /\:\/\/\w/) {
+					$this 		=   '['.$this.']('.$id.')' }
+				elsif ($id =~ /\w/) {
+					$this 		.=  ' ('.$id.')' }
 				$markdown 	.=  "\n* ".$this."  ";
 	}}}
-	$markdown 		.=  "\n\n##### {S}[B] Status  \n";
-	$markdown 		.=  "\n* [".$data->{meta}->{sb_status}."](".$config->{links}->{sb_status_levels}.")  \n";
+	$markdown 		.=  "\n\n##### {S}[B] Status  [[i]](".$config->{links}->{sb_status_levels}.")\n";
+	$markdown 		.=  "\n* __".$data->{meta}->{sb_status}."__  \n";
   $markdown  		.=  <<END;
 
 $config->{jekyll_excerpt_separator}
@@ -177,7 +183,7 @@ END
 
 		$markdown 	.=  "##### `$property` Value "._pluralize("Example", $data->{properties}->{$property}->{'examples'})."  \n\n";	
 		foreach (@{ $data->{properties}->{$property}->{'examples'} }) {
-		  $markdown .=  "```\n".JSON::XS->new->pretty( 1 )->allow_nonref->encode($_)."```\n";		
+		  $markdown .=  "```\n".JSON::XS->new->pretty( 1 )->allow_nonref->canonical()->encode($_)."```\n";		
 		}
 
 	}
@@ -185,7 +191,7 @@ END
 	if ($data->{'examples'}) {
 		$markdown 	.=  "\n### `$className` Value "._pluralize("Example", $data->{'examples'})."  \n\n";
 		foreach (@{ $data->{'examples'} }) {
-		    $markdown   .=  "```\n".JSON::XS->new->pretty( 1 )->allow_nonref->encode($_)."```\n";		
+		    $markdown   .=  "```\n".JSON::XS->new->pretty( 1 )->canonical()->allow_nonref->encode($_)."```\n";		
 		}
 	}
 
@@ -248,6 +254,22 @@ sub _process_input_dirs {
 		}
 		close DIR;
 	}
+
+}
+
+################################################################################
+
+sub _expand_CURIEs {
+
+	my $config		=		shift;
+	my $curie			=		shift;
+
+	if (grep{ $curie =~ /^$_\:/ } keys %{ $config->{prefix_expansions} }) {
+		my $pre			=		(grep{ $curie =~ /^$_\:/ } keys %{ $config->{prefix_expansions} })[0];
+		$curie			=~	s/$pre\:/$config->{prefix_expansions}->{$pre}/;
+	}
+	
+	return $curie;
 
 }
 

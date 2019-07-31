@@ -8,5 +8,7 @@ paths:
   github_repository_path: 'https://github.com/ga4gh-schemablocks/blocks/blob/master'
 generator_prefix: '+generated__playground__'
 jekyll_excerpt_separator: "<!--more-->"
+prefix_expansions:
+  orcid: 'https://orcid.org/'
 links:
   sb_status_levels: "https://schemablocks.org/about/sb-status-levels.html"
