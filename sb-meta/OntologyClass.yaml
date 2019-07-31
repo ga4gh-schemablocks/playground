@@ -3,7 +3,7 @@
 title: Ontology Class
 meta:
   contributors:
-    - "GA4GH Metadata Task Team"
+    - description: "GA4GH Metadata Task Team"
     - description: "Christopher Mungall"
       id: "orcid:0000-0002-6601-2165"
     - description: "Michael Baudis"
