@@ -80,13 +80,22 @@ markdown document.
 
 =cut
 
-  my $markdown  =   "## $className\n\n### SchemaBlocks Metadata";
+  my $markdown  =   <<END;
+
+## $className
+
+### SchemaBlocks Metadata
+
+* {S}[B] Status  [[i]]($config->{links}->{sb_status_levels})
+
+    - __$data->{meta}->{sb_status}__
+END
 
 	foreach my $attr (qw(provenance used_by contributors)) {
 		if ($data->{meta}->{$attr}) {
 			my $label =   $attr;
 			$label  	=~  s/\_/ /g;
-			$markdown .=  "\n\n##### ".ucfirst($label)."  \n";
+			$markdown .=  "\n\n* ".ucfirst($label)."  \n";
 			foreach (@{$data->{meta}->{$attr}}) {
 				my $this		=   $_->{description};
 =podmd
@@ -99,10 +108,8 @@ configuration file and links e.g. the
 					$this 		=   '['.$this.']('.$id.')' }
 				elsif ($id =~ /\w/) {
 					$this 		.=  ' ('.$id.')' }
-				$markdown 	.=  "\n* ".$this."  ";
+				$markdown 	.=  "\n    - ".$this."  ";
 	}}}
-	$markdown 		.=  "\n\n##### {S}[B] Status  [[i]](".$config->{links}->{sb_status_levels}.")\n";
-	$markdown 		.=  "\n* __".$data->{meta}->{sb_status}."__  \n";
   $markdown  		.=  <<END;
 
 $config->{jekyll_excerpt_separator}

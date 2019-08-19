@@ -1,29 +1,30 @@
+
 ## OntologyClass
 
 ### SchemaBlocks Metadata
 
-##### Provenance  
+* {S}[B] Status  [[i]](https://schemablocks.org/about/sb-status-levels.html)
 
-* Original GA4GH schema  
-* additional discussions with @cmungall and phenopackets developers  
-* Phenopackets alignment  
+    - __implemented__
 
-##### Used by  
 
-* Phenopackets  
-* Progenetix database schema (Beacon+ backend)  
+* Provenance  
 
-##### Contributors  
+    - Original GA4GH schema  
+    - additional discussions with @cmungall and phenopackets developers  
+    - Phenopackets alignment  
 
-* GA4GH Metadata Task Team  
-* [Christopher Mungall](https://orcid.org/0000-0002-6601-2165)  
-* [Michael Baudis](https://orcid.org/0000-0002-9903-4248)  
-* [Melanie Courtot](https://orcid.org/0000-0002-9551-6370)  
+* Used by  
 
-##### {S}[B] Status  [[i]](https://schemablocks.org/about/sb-status-levels.html)
+    - Phenopackets  
+    - Progenetix database schema (Beacon+ backend)  
 
-* __implemented__  
+* Contributors  
 
+    - GA4GH Metadata Task Team  
+    - [Christopher Mungall](https://orcid.org/0000-0002-6601-2165)  
+    - [Michael Baudis](https://orcid.org/0000-0002-9903-4248)  
+    - [Melanie Courtot](https://orcid.org/0000-0002-9551-6370)  
 <!--more-->
 
 ### Properties

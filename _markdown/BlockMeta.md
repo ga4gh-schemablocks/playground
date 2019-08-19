@@ -1,23 +1,24 @@
+
 ## BlockMeta
 
 ### SchemaBlocks Metadata
 
-##### Provenance  
+* {S}[B] Status  [[i]](https://schemablocks.org/about/sb-status-levels.html)
 
-* [Original development for SchemaBlocks project](https://schemablocks.org)  
+    - __playground__
 
-##### Used by  
 
-* [SchemaBlocks](https://schemablocks.org)  
+* Provenance  
 
-##### Contributors  
+    - [Original development for SchemaBlocks project](https://schemablocks.org)  
 
-* [Michael Baudis](https://orcid.org/0000-0002-9903-4248)  
+* Used by  
 
-##### {S}[B] Status  [[i]](https://schemablocks.org/about/sb-status-levels.html)
+    - [SchemaBlocks](https://schemablocks.org)  
 
-* __playground__  
+* Contributors  
 
+    - [Michael Baudis](https://orcid.org/0000-0002-9903-4248)  
 <!--more-->
 
 ### Properties

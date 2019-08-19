@@ -1,25 +1,26 @@
+
 ## Age
 
 ### SchemaBlocks Metadata
 
-##### Provenance  
+* {S}[B] Status  [[i]](https://schemablocks.org/about/sb-status-levels.html)
 
-* [Phenopackets](https://github.com/phenopackets/phenopacket-schema/blob/master/docs/age.rst)  
+    - __implemented__
 
-##### Used by  
 
-* [Phenopackets](https://github.com/phenopackets/phenopacket-schema/blob/master/docs/age.rst)  
+* Provenance  
 
-##### Contributors  
+    - [Phenopackets](https://github.com/phenopackets/phenopacket-schema/blob/master/docs/age.rst)  
 
-* [Jules Jacobsen](https://orcid.org/0000-0002-3265-15918)  
-* [Peter Robinson](https://orcid.org/0000-0002-0736-91998)  
-* [Michael Baudis](https://orcid.org/0000-0002-9903-4248)  
+* Used by  
 
-##### {S}[B] Status  [[i]](https://schemablocks.org/about/sb-status-levels.html)
+    - [Phenopackets](https://github.com/phenopackets/phenopacket-schema/blob/master/docs/age.rst)  
 
-* __implemented__  
+* Contributors  
 
+    - [Jules Jacobsen](https://orcid.org/0000-0002-3265-15918)  
+    - [Peter Robinson](https://orcid.org/0000-0002-0736-91998)  
+    - [Michael Baudis](https://orcid.org/0000-0002-9903-4248)  
 <!--more-->
 
 ### Properties

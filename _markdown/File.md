@@ -1,23 +1,24 @@
+
 ## File
 
 ### SchemaBlocks Metadata
 
-##### Provenance  
+* {S}[B] Status  [[i]](https://schemablocks.org/about/sb-status-levels.html)
 
-* [Phenopackets](https://github.com/phenopackets/phenopacket-schema/blob/master/docs/file.rst)  
+    - __implemented__
 
-##### Used by  
 
-* [Phenopackets](https://github.com/phenopackets/phenopacket-schema/blob/master/docs/file.rst)  
+* Provenance  
 
-##### Contributors  
+    - [Phenopackets](https://github.com/phenopackets/phenopacket-schema/blob/master/docs/file.rst)  
 
-* [Jules Jacobsen](https://orcid.org/0000-0002-3265-15918)  
+* Used by  
 
-##### {S}[B] Status  [[i]](https://schemablocks.org/about/sb-status-levels.html)
+    - [Phenopackets](https://github.com/phenopackets/phenopacket-schema/blob/master/docs/file.rst)  
 
-* __implemented__  
+* Contributors  
 
+    - [Jules Jacobsen](https://orcid.org/0000-0002-3265-15918)  
 <!--more-->
 
 ### Properties
