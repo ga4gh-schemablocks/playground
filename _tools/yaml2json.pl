@@ -3,6 +3,7 @@
 #use diagnostics;
 
 use File::Basename;
+use File::Copy;
 use JSON::XS;
 use YAML::XS qw(LoadFile DumpFile);
 use Data::Dumper;
@@ -21,6 +22,7 @@ $args{-filter}	||= q{};
 $args{-cleanup}	||= "n";
 foreach (keys %args) { $config->{args}->{$_} = $args{$_} }
 
+_check_paths($config);
 _delete_generated_files($config);
 _process_input_dirs($config);
 
@@ -71,8 +73,10 @@ be separated w/o using directory logic for the site.
 
   my $expl_file = 	$config->{paths}->{'json_path_rel'}.'/'.$className.'-examples.json';
   my $md_file   =   $config->{paths}->{'md_path_rel'}.'/'.$className.'.md';
-  my $md_web_file   		=   $config->{paths}->{'md_web_path_rel'}.'/'.$config->{generator_prefix}.$className.'.md';
-  my $yaml_src_web_link =   $config->{paths}->{github_repository_path}.'/src/yaml/'.$file_name;
+  my $src_web_file	=		$config->{paths}->{'md_web_schemas_src_rel'}.'/'.$file_name;
+  my $md_web_file   =   $config->{paths}->{'md_web_doc_rel'}.'/'.$config->{generator_prefix}.$className.'.md';
+  my $yaml_github_web_link 	=   $config->{paths}->{github_repository_path}.'/src/yaml/'.$file_name;
+  copy($yaml_file, $src_web_file);
 
 =podmd
 The documentation is extracted from the $data object and formatted into a
@@ -87,7 +91,6 @@ markdown document.
 ### SchemaBlocks Metadata
 
 * {S}[B] Status  [[i]]($config->{links}->{sb_status_levels})
-
     - __$data->{meta}->{sb_status}__
 END
 
@@ -202,6 +205,15 @@ END
 		}
 	}
 
+  $markdown   .=  <<END;
+    
+#### Source
+
+* [raw data](./$file_name)
+* [Github]($yaml_github_web_link)
+
+END
+
 	##############################################################################
 
 =podmd
@@ -224,6 +236,28 @@ END
   print FILE  $jekyll_header.$markdown."\n";
   close FILE;
 
+}
+
+################################################################################
+
+sub _check_paths {
+
+  my $config 		=   shift;
+
+	foreach my $path (grep { /_rel/ } keys %{$config->{paths}}) {
+		if (! -d $config->{paths}->{$path}) {
+			print <<END;
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Path "$path" does not exist at 
+    $config->{paths}->{$path}
+Dying on the spot ...
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+END
+	
+		}
+	}
 }
 
 ################################################################################
@@ -292,7 +326,7 @@ sub _create_jekyll_header {
 ---
 title: '$className'
 layout: default
-permalink: "/schemas/blocks/$className.html"
+permalink: "$config->{paths}->{md_web_doc_link}/$className.html"
 excerpt_separator: $config->{jekyll_excerpt_separator}
 category:
   - schemas

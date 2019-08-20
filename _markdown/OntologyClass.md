@@ -4,7 +4,6 @@
 ### SchemaBlocks Metadata
 
 * {S}[B] Status  [[i]](https://schemablocks.org/about/sb-status-levels.html)
-
     - __implemented__
 
 
@@ -84,4 +83,10 @@ the text label associated with the term
    "label" : "Juvenile onset"
 }
 ```
+    
+#### Source
+
+* [raw data](./OntologyClass.yaml)
+* [Github](https://github.com/ga4gh-schemablocks/blocks/blob/master/src/yaml/OntologyClass.yaml)
+
 

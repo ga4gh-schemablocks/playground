@@ -4,7 +4,6 @@
 ### SchemaBlocks Metadata
 
 * {S}[B] Status  [[i]](https://schemablocks.org/about/sb-status-levels.html)
-
     - __implemented__
 
 
@@ -92,4 +91,10 @@ URI for the file
    "uri" : "file://data/genomes/file1.vcf.gz"
 }
 ```
+    
+#### Source
+
+* [raw data](./File.yaml)
+* [Github](https://github.com/ga4gh-schemablocks/blocks/blob/master/src/yaml/File.yaml)
+
 
