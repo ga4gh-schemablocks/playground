@@ -100,18 +100,18 @@ END
 			$label  	=~  s/\_/ /g;
 			$markdown .=  "\n\n* ".ucfirst($label)."  \n";
 			foreach (@{$data->{meta}->{$attr}}) {
-				my $this		=   $_->{description};
+				my $text		=   $_->{description};
 =podmd
 The script performs a CURIE to URL expansion for prefixes defined in the
 configuration file and links e.g. the 
 
 =cut
-				my $id			=		_expand_CURIEs($config, $_->{id});
+				my $id	=		_expand_CURIEs($config, $_->{id});
 				if ($id =~ /\:\/\/\w/) {
-					$this 		=   '['.$this.']('.$id.')' }
+					$text =   '['.$text.']('.$id.')' }
 				elsif ($id =~ /\w/) {
-					$this 		.=  ' ('.$id.')' }
-				$markdown 	.=  "\n    - ".$this."  ";
+					$text .=  ' ('.$id.')' }
+				$markdown 	.=  "\n    - ".$text."  ";
 	}}}
   $markdown  		.=  <<END;
 
@@ -127,28 +127,12 @@ $config->{jekyll_excerpt_separator}
 END
 
   foreach my $property ( sort keys %{ $data->{properties} } ) {
-
-    my $type  	=   $data->{properties}->{$property}->{type};
-    my $typeLab;
-    if ($type =~ /array/) {
-    	$typeLab	=		"array of ";
-    	$type			=		$data->{properties}->{$property}->{items};
-    }
-    if (ref($type) =~ /HASH/) {
-    	my $key		=		(keys %$type)[0];
-    	my $link	=		$type->{ $key };
-# TODO: currently the link to the "official" spec is made relative, since this
-# hasn't been finalized...
-			$link			=~	s/^.+?ga4gh/./;
-			$link			=~	s/\/[^\/]+?$/.html/;
-   		$typeLab	.=	$key.': <a href="'.$link.'" target="_BLANK">'.$link.'</a>' }
-    else {
-    	$typeLab	.=	$type }
-
+    
+		my $label	=		_format_property_type_html($data->{properties}->{$property});
     $markdown .=  <<END;
   <tr>
     <td>$property</td>
-    <td>$typeLab</td>
+    <td>$label</td>
   </tr>
 END
     }
@@ -163,29 +147,13 @@ descriptions and examples.
    
   foreach my $property ( sort keys %{ $data->{properties} } ) {
 
-    my $type  	=   $data->{properties}->{$property}->{type};
-    my $typeLab;
-    if ($type =~ /array/) {
-    	$typeLab	=		"array of ";
-    	$type			=		$data->{properties}->{$property}->{items};
-    }
-    if (ref($type) =~ /HASH/) {
-    	my $key		=		(keys %$type)[0];
-    	my $link	=		$type->{ $key };
-# TODO: currently the link to the "official" spec is made relative, since this
-# hasn't been finalized...
-			$link			=~	s/^.+?ga4gh/./;
-			$link			=~	s/\/[^\/]+?$/.html/;
-   		$typeLab	.=	$key.': ['.$link.']('.$link.')' }
-    else {
-    	$typeLab	.=	$type }
-    my $description =   $data->{properties}->{$property}->{'description'};
+		my $label	=		_format_property_type_html($data->{properties}->{$property});
     
     $markdown   .=  <<END;
     
 #### $property
 
-* type: $typeLab
+* type: $label
 
 $description
 
@@ -311,6 +279,33 @@ sub _expand_CURIEs {
 	}
 	
 	return $curie;
+
+}
+
+################################################################################
+
+sub _format_property_type_html {
+
+	my $prop_data	=		shift;
+  my $typeLab;
+	my $type  		=   $prop_data->{type};
+	if ($type !~ /.../ && $prop_data->{'$ref'} =~ /.../) {
+		$typeLab		=		$prop_data->{'$ref'} }
+	elsif ($type =~ /array/ && $prop_data->{items}->{'$ref'} =~ /.../) {
+		$typeLab		=		$prop_data->{items}->{'$ref'} }
+	else {
+		$typeLab		=		$type }
+		
+	if ($typeLab =~ /\/[\w\-]+?\.\w+?$/) {
+		my $yaml		=		$typeLab;
+		my $html		=		$typeLab;
+		$html				=~	s/\.\w+?$/.html/;
+		$typeLab		.=	' [<a href="'.$yaml.'" target="_BLANK">SRC</a>] [<a href="'.$html.'" target="_BLANK">HTML</a>]' }
+
+	if ($type =~ /array/) {
+		$typeLab		=		"array of ".$typeLab }
+		
+		return $typeLab;
 
 }
 

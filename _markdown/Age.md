@@ -35,7 +35,7 @@
   </tr>
   <tr>
     <td>ageClass</td>
-    <td></td>
+    <td>https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.html" target="_BLANK">HTML</a>]</td>
   </tr>
 
 </table>
@@ -45,7 +45,7 @@
 
 * type: string
 
-Age as ISO8601 period
+
 
 ##### `age` Value Example  
 
@@ -55,15 +55,8 @@ Age as ISO8601 period
     
 #### ageClass
 
-* type: 
+* type: https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.html" target="_BLANK">HTML</a>]
 
-The age of the subject (e.g. individual at the onset of a phenotype),
-as OntologyClass. An example ontology here is HsapDv (Human
-Developmental Stages).
-This does not exactly correspond to the use of "age of onset" in HPO,
-since this specifically codes the "onset" of a phenotype, not just any
-age as a timepoint. So when coding onset, implementations may choose
-to either use an "age of onset" ontology or an "Age" class.
 
 
 ##### `ageClass` Value Example  

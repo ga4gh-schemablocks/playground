@@ -47,7 +47,7 @@
 
 * type: string
 
-description of the file contents
+
 
 ##### `description` Value Example  
 
@@ -59,7 +59,7 @@ description of the file contents
 
 * type: string
 
-Full system path to the file
+
 
 ##### `path` Value Example  
 
@@ -71,7 +71,7 @@ Full system path to the file
 
 * type: string
 
-URI for the file
+
 
 ##### `uri` Value Examples  
 
