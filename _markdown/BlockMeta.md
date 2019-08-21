@@ -20,6 +20,11 @@
     - [Michael Baudis](https://orcid.org/0000-0002-9903-4248)  
 <!--more-->
 
+#### Source
+
+* [raw data](./BlockMeta.yaml)
+* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/BlockMeta.yaml)
+
 ### Properties
 
 <table>
@@ -29,11 +34,11 @@
   </tr>
   <tr>
     <td>contributors</td>
-    <td>array of $ref: <a href="./ExternalReference.html" target="_BLANK">./ExternalReference.html</a></td>
+    <td>array of https://schemablocks.org/schemas/ga4gh/ExternalReference.yaml [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]</td>
   </tr>
   <tr>
     <td>provenance</td>
-    <td>array of $ref: <a href="./ExternalReference.html" target="_BLANK">./ExternalReference.html</a></td>
+    <td>array of https://schemablocks.org/schemas/ga4gh/ExternalReference.yaml [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]</td>
   </tr>
   <tr>
     <td>sb_status</td>
@@ -41,7 +46,7 @@
   </tr>
   <tr>
     <td>use_cases</td>
-    <td>array of $ref: <a href="./ExternalReference.html" target="_BLANK">./ExternalReference.html</a></td>
+    <td>array of https://schemablocks.org/schemas/ga4gh/ExternalReference.yaml [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]</td>
   </tr>
 
 </table>
@@ -49,7 +54,7 @@
     
 #### contributors
 
-* type: array of $ref: [./ExternalReference.html](./ExternalReference.html)
+* type: array of https://schemablocks.org/schemas/ga4gh/ExternalReference.yaml [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]
 
 The `contributors` attribute provides a list of one or more contributors
 which had been involved in the block's definition or support its format.
@@ -66,7 +71,7 @@ which had been involved in the block's definition or support its format.
     
 #### provenance
 
-* type: array of $ref: [./ExternalReference.html](./ExternalReference.html)
+* type: array of https://schemablocks.org/schemas/ga4gh/ExternalReference.yaml [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]
 
 The `provenance` attribute provides a list of pointers to e.g. external
 schemas, predecessors of the current schema or external documentation
@@ -127,7 +132,7 @@ levels is:
     
 #### use_cases
 
-* type: array of $ref: [./ExternalReference.html](./ExternalReference.html)
+* type: array of https://schemablocks.org/schemas/ga4gh/ExternalReference.yaml [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]
 
 With the `use_cases` attribute one can provide links and descriptions
 for the use of a given block in an external implementation.
@@ -183,10 +188,4 @@ of the schema.
    ]
 }
 ```
-    
-#### Source
-
-* [raw data](./BlockMeta.yaml)
-* [Github](https://github.com/ga4gh-schemablocks/blocks/blob/master/src/yaml/BlockMeta.yaml)
-
 

@@ -2,6 +2,7 @@
 
 #use diagnostics;
 
+use Cwd qw(abs_path);
 use File::Basename;
 use File::Copy;
 use JSON::XS;
@@ -12,9 +13,12 @@ use Text::Markdown qw(markdown);
 
 binmode STDOUT, ":utf8";
 
-my $here_path   =   File::Basename::dirname( eval { ( caller() )[1] } );
+my $here_path   =   File::Basename::dirname(__FILE__);
 my $config     	=   LoadFile($here_path.'/config.yaml') or die "¡No config.yaml file in this path!";
 bless $config;
+
+my @absPath			=		split('/', abs_path($0));
+$config->{repository}	=		$absPath[-3];	# script resides in a dir in repo root
 
 # command line input
 my %args        =   @ARGV;
@@ -30,18 +34,20 @@ exit;
 
 ################################################################################
 ################################################################################
-################################################################################
 # subs
 ################################################################################
 ################################################################################
+
+################################################################################
+# main process
 ################################################################################
 
 sub _process_yaml {
 
   my $config 		=   shift;
-  my $src_path 	=   shift;
+  my $src_dir 	=   shift;
   my $file_name =   shift;
-  my $yaml_file =   $src_path.'/'.$file_name;
+  my $yaml_file =   '../'.$src_dir.'/'.$file_name;
 
   print "Reading YAML file \"$yaml_file\"\n";
 
@@ -75,7 +81,7 @@ be separated w/o using directory logic for the site.
   my $md_file   =   $config->{paths}->{'md_path_rel'}.'/'.$className.'.md';
   my $src_web_file	=		$config->{paths}->{'md_web_schemas_src_rel'}.'/'.$file_name;
   my $md_web_file   =   $config->{paths}->{'md_web_doc_rel'}.'/'.$config->{generator_prefix}.$className.'.md';
-  my $yaml_github_web_link 	=   $config->{paths}->{github_repository_path}.'/src/yaml/'.$file_name;
+  my $yaml_github_web_link 	=   $config->{paths}->{github_org_path}.'/'.$config->{repository}.'/blob/master/'.$src_dir.'/'.$file_name;
   copy($yaml_file, $src_web_file);
 
 =podmd
@@ -100,22 +106,27 @@ END
 			$label  	=~  s/\_/ /g;
 			$markdown .=  "\n\n* ".ucfirst($label)."  \n";
 			foreach (@{$data->{meta}->{$attr}}) {
-				my $this		=   $_->{description};
+				my $text		=   $_->{description};
 =podmd
 The script performs a CURIE to URL expansion for prefixes defined in the
 configuration file and links e.g. the 
 
 =cut
-				my $id			=		_expand_CURIEs($config, $_->{id});
+				my $id	=		_expand_CURIEs($config, $_->{id});
 				if ($id =~ /\:\/\/\w/) {
-					$this 		=   '['.$this.']('.$id.')' }
+					$text =   '['.$text.']('.$id.')' }
 				elsif ($id =~ /\w/) {
-					$this 		.=  ' ('.$id.')' }
-				$markdown 	.=  "\n    - ".$this."  ";
+					$text .=  ' ('.$id.')' }
+				$markdown 	.=  "\n    - ".$text."  ";
 	}}}
   $markdown  		.=  <<END;
 
 $config->{jekyll_excerpt_separator}
+
+#### Source
+
+* [raw source](./$file_name)
+* [Github]($yaml_github_web_link)
 
 ### Properties
 
@@ -127,28 +138,12 @@ $config->{jekyll_excerpt_separator}
 END
 
   foreach my $property ( sort keys %{ $data->{properties} } ) {
-
-    my $type  	=   $data->{properties}->{$property}->{type};
-    my $typeLab;
-    if ($type =~ /array/) {
-    	$typeLab	=		"array of ";
-    	$type			=		$data->{properties}->{$property}->{items};
-    }
-    if (ref($type) =~ /HASH/) {
-    	my $key		=		(keys %$type)[0];
-    	my $link	=		$type->{ $key };
-# TODO: currently the link to the "official" spec is made relative, since this
-# hasn't been finalized...
-			$link			=~	s/^.+?ga4gh/./;
-			$link			=~	s/\/[^\/]+?$/.html/;
-   		$typeLab	.=	$key.': <a href="'.$link.'" target="_BLANK">'.$link.'</a>' }
-    else {
-    	$typeLab	.=	$type }
-
+    
+		my $label	=		_format_property_type_html($data->{properties}->{$property});
     $markdown .=  <<END;
   <tr>
     <td>$property</td>
-    <td>$typeLab</td>
+    <td>$label</td>
   </tr>
 END
     }
@@ -163,31 +158,15 @@ descriptions and examples.
    
   foreach my $property ( sort keys %{ $data->{properties} } ) {
 
-    my $type  	=   $data->{properties}->{$property}->{type};
-    my $typeLab;
-    if ($type =~ /array/) {
-    	$typeLab	=		"array of ";
-    	$type			=		$data->{properties}->{$property}->{items};
-    }
-    if (ref($type) =~ /HASH/) {
-    	my $key		=		(keys %$type)[0];
-    	my $link	=		$type->{ $key };
-# TODO: currently the link to the "official" spec is made relative, since this
-# hasn't been finalized...
-			$link			=~	s/^.+?ga4gh/./;
-			$link			=~	s/\/[^\/]+?$/.html/;
-   		$typeLab	.=	$key.': ['.$link.']('.$link.')' }
-    else {
-    	$typeLab	.=	$type }
-    my $description =   $data->{properties}->{$property}->{'description'};
+		my $label	=		_format_property_type_html($data->{properties}->{$property});
     
     $markdown   .=  <<END;
     
 #### $property
 
-* type: $typeLab
+* type: $label
 
-$description
+$data->{properties}->{$property}->{'description'}
 
 END
 
@@ -204,15 +183,6 @@ END
 		    $markdown   .=  "```\n".JSON::XS->new->pretty( 1 )->canonical()->allow_nonref->encode($_)."```\n";		
 		}
 	}
-
-  $markdown   .=  <<END;
-    
-#### Source
-
-* [raw data](./$file_name)
-* [Github]($yaml_github_web_link)
-
-END
 
 	##############################################################################
 
@@ -238,6 +208,8 @@ END
 
 }
 
+################################################################################
+# helpers
 ################################################################################
 
 sub _check_paths {
@@ -284,12 +256,12 @@ sub _process_input_dirs {
 
 	my $config		=		shift;
 
-	foreach my $src_path (@{ $config->{paths}->{'src_paths'} }) {
-		opendir DIR, $src_path;
+	foreach my $src_dir (@{ $config->{paths}->{'src_dirs'} }) {
+		opendir DIR, '../'.$src_dir;
 		foreach (grep{ /ya?ml$/ } readdir(DIR)) {
 			_process_yaml(
 				$config,
-				$src_path,
+				$src_dir,
 				$_
 			);
 		}
@@ -311,6 +283,33 @@ sub _expand_CURIEs {
 	}
 	
 	return $curie;
+
+}
+
+################################################################################
+
+sub _format_property_type_html {
+
+	my $prop_data	=		shift;
+  my $typeLab;
+	my $type  		=   $prop_data->{type};
+	if ($type !~ /.../ && $prop_data->{'$ref'} =~ /.../) {
+		$typeLab		=		$prop_data->{'$ref'} }
+	elsif ($type =~ /array/ && $prop_data->{items}->{'$ref'} =~ /.../) {
+		$typeLab		=		$prop_data->{items}->{'$ref'} }
+	else {
+		$typeLab		=		$type }
+		
+	if ($typeLab =~ /\/[\w\-]+?\.\w+?$/) {
+		my $yaml		=		$typeLab;
+		my $html		=		$typeLab;
+		$html				=~	s/\.\w+?$/.html/;
+		$typeLab		.=	' [<a href="'.$yaml.'" target="_BLANK">SRC</a>] [<a href="'.$html.'" target="_BLANK">HTML</a>]' }
+
+	if ($type =~ /array/) {
+		$typeLab		=		"array of ".$typeLab }
+		
+		return $typeLab;
 
 }
 

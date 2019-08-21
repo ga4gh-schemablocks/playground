@@ -22,6 +22,11 @@
     - [Michael Baudis](https://orcid.org/0000-0002-9903-4248)  
 <!--more-->
 
+#### Source
+
+* [raw data](./Age.yaml)
+* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/Age.yaml)
+
 ### Properties
 
 <table>
@@ -35,7 +40,7 @@
   </tr>
   <tr>
     <td>ageClass</td>
-    <td></td>
+    <td>https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.html" target="_BLANK">HTML</a>]</td>
   </tr>
 
 </table>
@@ -55,7 +60,7 @@ Age as ISO8601 period
     
 #### ageClass
 
-* type: 
+* type: https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.html" target="_BLANK">HTML</a>]
 
 The age of the subject (e.g. individual at the onset of a phenotype),
 as OntologyClass. An example ontology here is HsapDv (Human
@@ -91,10 +96,4 @@ to either use an "age of onset" ontology or an "Age" class.
    "age" : "P56Y3M"
 }
 ```
-    
-#### Source
-
-* [raw data](./Age.yaml)
-* [Github](https://github.com/ga4gh-schemablocks/blocks/blob/master/src/yaml/Age.yaml)
-
 
