@@ -155,7 +155,7 @@ descriptions and examples.
 
 * type: $label
 
-$description
+$data->{properties}->{$property}->{'description'}
 
 END
 

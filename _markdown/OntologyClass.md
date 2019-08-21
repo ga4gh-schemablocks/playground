@@ -49,7 +49,7 @@
 
 * type: string
 
-
+properly prefixed CURIE of the ontology term
 
 ##### `id` Value Example  
 
@@ -61,7 +61,7 @@
 
 * type: string
 
-
+the text label associated with the term
 
 ##### `label` Value Example  
 

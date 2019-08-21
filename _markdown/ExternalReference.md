@@ -45,7 +45,7 @@
 
 * type: string
 
-
+Free text about the external reference
 
 ##### `description` Value Examples  
 
@@ -60,6 +60,8 @@
 
 * type: string
 
+Identifer of the external reference. The format should be in the form
+of a URI (CURIE or URL recommended).
 
 
 ##### `id` Value Examples  
