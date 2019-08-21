@@ -20,6 +20,11 @@
     - [Jules Jacobsen](https://orcid.org/0000-0002-3265-15918)  
 <!--more-->
 
+#### Source
+
+* [raw data](./File.yaml)
+* [Github](https://github.com/ga4gh-schemablocks/blocks/blob/master/src/yaml/File.yaml)
+
 ### Properties
 
 <table>
@@ -91,10 +96,4 @@ URI for the file
    "uri" : "file://data/genomes/file1.vcf.gz"
 }
 ```
-    
-#### Source
-
-* [raw data](./File.yaml)
-* [Github](https://github.com/ga4gh-schemablocks/blocks/blob/master/src/yaml/File.yaml)
-
 

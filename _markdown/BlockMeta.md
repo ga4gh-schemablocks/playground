@@ -20,6 +20,11 @@
     - [Michael Baudis](https://orcid.org/0000-0002-9903-4248)  
 <!--more-->
 
+#### Source
+
+* [raw data](./BlockMeta.yaml)
+* [Github](https://github.com/ga4gh-schemablocks/blocks/blob/master/src/yaml/BlockMeta.yaml)
+
 ### Properties
 
 <table>
@@ -183,10 +188,4 @@ of the schema.
    ]
 }
 ```
-    
-#### Source
-
-* [raw data](./BlockMeta.yaml)
-* [Github](https://github.com/ga4gh-schemablocks/blocks/blob/master/src/yaml/BlockMeta.yaml)
-
 
