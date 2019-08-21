@@ -18,10 +18,10 @@ meta:
       id: "orcid:0000-0002-4839-5158"
   provenance:
     - description: Phenopackets
-      id: 'https://github.com/phenopackets/phenopacket-schema/blob/master/docs/agerange.rst'
+      id: 'https://github.com/phenopackets/phenopacket-schema/blob/master/docs/procedure.rst'
   used_by:
     - description: Phenopackets
-      id: 'https://github.com/phenopackets/phenopacket-schema/blob/master/docs/agerange.rst'
+      id: 'https://github.com/phenopackets/phenopacket-schema/blob/master/docs/procedure.rst'
   sb_status: implemented
 properties:
   code:

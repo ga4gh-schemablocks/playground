@@ -14,10 +14,10 @@ meta:
       id: "orcid:0000-0002-9903-4248"
   provenance:
     - description: Phenopackets
-      id: 'https://github.com/phenopackets/phenopacket-schema/blob/master/docs/agerange.rst'
+      id: 'https://github.com/phenopackets/phenopacket-schema/blob/master/docs/evidence.rst'
   used_by:
     - description: Phenopackets
-      id: 'https://github.com/phenopackets/phenopacket-schema/blob/master/docs/agerange.rst'
+      id: 'https://github.com/phenopackets/phenopacket-schema/blob/master/docs/evidence.rst'
   sb_status: implemented
 properties:
   evidenceCode:
