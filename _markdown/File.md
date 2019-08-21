@@ -23,7 +23,7 @@
 #### Source
 
 * [raw data](./File.yaml)
-* [Github](https://github.com/ga4gh-schemablocks/blocks/blob/master/src/yaml/File.yaml)
+* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/File.yaml)
 
 ### Properties
 

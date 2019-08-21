@@ -29,7 +29,7 @@
 #### Source
 
 * [raw data](./OntologyClass.yaml)
-* [Github](https://github.com/ga4gh-schemablocks/blocks/blob/master/src/yaml/OntologyClass.yaml)
+* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/OntologyClass.yaml)
 
 ### Properties
 

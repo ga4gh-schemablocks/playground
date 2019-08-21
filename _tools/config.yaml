@@ -1,13 +1,13 @@
 ---
 paths:
-  src_paths:
-    - '../sb-meta'
+  src_dirs:
+    - sb-meta
   json_path_rel: '../_json'
   md_path_rel: '../_markdown'
   md_web_doc_rel: '../../ga4gh-schemablocks.github.io/pages/_schemas/ga4gh'
   md_web_doc_link: '/schemas/ga4gh'
   md_web_schemas_src_rel: '../../ga4gh-schemablocks.github.io/schemas/ga4gh'
-  github_repository_path: 'https://github.com/ga4gh-schemablocks/blocks/blob/master'
+  github_org_path: 'https://github.com/ga4gh-schemablocks'
 generator_prefix: '+generated__playground__'
 jekyll_excerpt_separator: "<!--more-->"
 prefix_expansions:

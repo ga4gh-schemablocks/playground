@@ -2,6 +2,7 @@
 
 #use diagnostics;
 
+use Cwd qw(abs_path);
 use File::Basename;
 use File::Copy;
 use JSON::XS;
@@ -12,9 +13,12 @@ use Text::Markdown qw(markdown);
 
 binmode STDOUT, ":utf8";
 
-my $here_path   =   File::Basename::dirname( eval { ( caller() )[1] } );
+my $here_path   =   File::Basename::dirname(__FILE__);
 my $config     	=   LoadFile($here_path.'/config.yaml') or die "¡No config.yaml file in this path!";
 bless $config;
+
+my @absPath			=		split('/', abs_path($0));
+$config->{repository}	=		$absPath[-3];	# script resides in a dir in repo root
 
 # command line input
 my %args        =   @ARGV;
@@ -41,9 +45,9 @@ exit;
 sub _process_yaml {
 
   my $config 		=   shift;
-  my $src_path 	=   shift;
+  my $src_dir 	=   shift;
   my $file_name =   shift;
-  my $yaml_file =   $src_path.'/'.$file_name;
+  my $yaml_file =   '../'.$src_dir.'/'.$file_name;
 
   print "Reading YAML file \"$yaml_file\"\n";
 
@@ -77,7 +81,7 @@ be separated w/o using directory logic for the site.
   my $md_file   =   $config->{paths}->{'md_path_rel'}.'/'.$className.'.md';
   my $src_web_file	=		$config->{paths}->{'md_web_schemas_src_rel'}.'/'.$file_name;
   my $md_web_file   =   $config->{paths}->{'md_web_doc_rel'}.'/'.$config->{generator_prefix}.$className.'.md';
-  my $yaml_github_web_link 	=   $config->{paths}->{github_repository_path}.'/src/yaml/'.$file_name;
+  my $yaml_github_web_link 	=   $config->{paths}->{github_org_path}.'/'.$config->{repository}.'/blob/master/'.$src_dir.'/'.$file_name;
   copy($yaml_file, $src_web_file);
 
 =podmd
@@ -121,7 +125,7 @@ $config->{jekyll_excerpt_separator}
 
 #### Source
 
-* [raw data](./$file_name)
+* [raw source](./$file_name)
 * [Github]($yaml_github_web_link)
 
 ### Properties
@@ -252,12 +256,12 @@ sub _process_input_dirs {
 
 	my $config		=		shift;
 
-	foreach my $src_path (@{ $config->{paths}->{'src_paths'} }) {
-		opendir DIR, $src_path;
+	foreach my $src_dir (@{ $config->{paths}->{'src_dirs'} }) {
+		opendir DIR, '../'.$src_dir;
 		foreach (grep{ /ya?ml$/ } readdir(DIR)) {
 			_process_yaml(
 				$config,
-				$src_path,
+				$src_dir,
 				$_
 			);
 		}

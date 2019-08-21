@@ -25,7 +25,7 @@
 #### Source
 
 * [raw data](./ExternalReference.yaml)
-* [Github](https://github.com/ga4gh-schemablocks/blocks/blob/master/src/yaml/ExternalReference.yaml)
+* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/ExternalReference.yaml)
 
 ### Properties
 

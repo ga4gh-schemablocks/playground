@@ -23,7 +23,7 @@
 #### Source
 
 * [raw data](./BlockMeta.yaml)
-* [Github](https://github.com/ga4gh-schemablocks/blocks/blob/master/src/yaml/BlockMeta.yaml)
+* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/BlockMeta.yaml)
 
 ### Properties
 
