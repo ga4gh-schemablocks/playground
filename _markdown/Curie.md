@@ -17,7 +17,7 @@
 
 * Contributors  
 
-    - Reece Hart (0000-0003-3463-0775)  
+    - [Reece Hart](https://orcid.org/0000-0003-3463-0775)  
     - [Michael Baudis](https://orcid.org/0000-0002-9903-4248)  
     - [Isuru Liyanage](https://orcid.org/0000-0002-4839-5158)  
 <!--more-->
@@ -38,9 +38,15 @@
 </table>
 
 
-### `Curie` Value Example  
+### `Curie` Value Examples  
 
 ```
 "DUO:0000004"
+```
+```
+"orcid:0000-0003-3463-0775"
+```
+```
+"PMID:15254584"
 ```
 
