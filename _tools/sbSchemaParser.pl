@@ -8,17 +8,18 @@ use File::Copy;
 use JSON::XS;
 use YAML::XS qw(LoadFile DumpFile);
 use Data::Dumper;
-$Data::Dumper::Sortkeys = 1;
+$Data::Dumper::Sortkeys = 	1;
 use Text::Markdown qw(markdown);
 
 binmode STDOUT, ":utf8";
-
-my $here_path   =   File::Basename::dirname(__FILE__);
+my @here_path  	=   split('/', abs_path($0));
+pop @here_path;
+my $here_path		=		join('/', @here_path);
 my $config     	=   LoadFile($here_path.'/config.yaml') or die "¡No config.yaml file in this path!";
 bless $config;
 
-my @absPath			=		split('/', abs_path($0));
-$config->{repository}	=		$absPath[-3];	# script resides in a dir in repo root
+$config->{repository}	=		(split('/', $here_path))[-2];	# script resides in a dir in repo root
+$config->{here_path}	=		$here_path;
 
 # command line input
 my %args        =   @ARGV;
@@ -26,7 +27,7 @@ $args{-filter}	||= q{};
 $args{-cleanup}	||= "n";
 foreach (keys %args) { $config->{args}->{$_} = $args{$_} }
 
-_check_paths($config);
+$config					=		_check_paths($config);
 _delete_generated_files($config);
 _process_input_dirs($config);
 
@@ -39,60 +40,49 @@ exit;
 ################################################################################
 
 ################################################################################
-# main process
+# main file specific process
 ################################################################################
 
 sub _process_yaml {
 
   my $config 		=   shift;
-  my $src_dir 	=   shift;
-  my $file_name =   shift;
-  my $yaml_file =   '../'.$src_dir.'/'.$file_name;
+  my $file_path =   shift;
 
-  print "Reading YAML file \"$yaml_file\"\n";
+  my $files			=		_create_file_paths($config, $file_path);
+	my $yaml_github_web_link 	=   $config->{paths}->{github_org_path}.'/'.$config->{repository}.'/blob/master/'.$files->{input_dir}.'/'.$files->{input_name};
+  
+  print "Reading YAML file \"$files->{input_yaml}\"\n";
 
-  my $data      =   LoadFile($yaml_file);
-# TODO: Ist this way to get the class name safe?
-  my $className	=		(split('/', $data->{'$id'}))[-2];
+  my $data      =   LoadFile($files->{input_yaml});
+  _check_class_name($files->{input_class}, $data->{title});
   
 =podmd
-The class name is extracted from the __properly formatted__ "$id" value.
-
+The class name is extracted from the file's "title" value.
 Processing is skipped if the class name does not consist of word character, or
 if a filter had been provided and the class name doesn't match.
 
 =cut
 
-  if ($className !~ /^\w+?$/) { return }
+  if ($data->{title} !~ /^\w+?$/) { return }
   
 	if ($args{-filter} =~ /.../) {
-		if ($className !~ /$args{-filter}/) {
+		if ($data->{title} !~ /$args{-filter}/) {
 			return } }
 
-  my $jekyll_header =   _create_jekyll_header($config, $className);
+  my $jekyll_header =   _create_jekyll_header($config, $data->{title});
 
 =podmd
-The web file gets a prefix, to ensure that auto-generated and normal pages can 
-be separated w/o using directory logic for the site.
+The web file for the Jekyll / GH-pages processing gets a prefix, to ensure that
+auto-generated and normal pages can be separated.
 
-=cut
-
-  my $expl_file = 	$config->{paths}->{'json_path_rel'}.'/'.$className.'-examples.json';
-  my $md_file   =   $config->{paths}->{'md_path_rel'}.'/'.$className.'.md';
-  my $src_web_file	=		$config->{paths}->{'md_web_schemas_src_rel'}.'/'.$file_name;
-  my $md_web_file   =   $config->{paths}->{'md_web_doc_rel'}.'/'.$config->{generator_prefix}.$className.'.md';
-  my $yaml_github_web_link 	=   $config->{paths}->{github_org_path}.'/'.$config->{repository}.'/blob/master/'.$src_dir.'/'.$file_name;
-  copy($yaml_file, $src_web_file);
-
-=podmd
 The documentation is extracted from the $data object and formatted into a
 markdown document.
 
 =cut
 
-  my $markdown  =   <<END;
+  my $md  			=   <<END;
 
-## $className
+## $data->{title}
 
 ### SchemaBlocks Metadata
 
@@ -104,12 +94,12 @@ END
 		if ($data->{meta}->{$attr}) {
 			my $label =   $attr;
 			$label  	=~  s/\_/ /g;
-			$markdown .=  "\n\n* ".ucfirst($label)."  \n";
+			$md 			.=  "\n\n* ".ucfirst($label)."  \n";
 			foreach (@{$data->{meta}->{$attr}}) {
 				my $text		=   $_->{description};
 =podmd
 The script performs a CURIE to URL expansion for prefixes defined in the
-configuration file and links e.g. the 
+configuration file and links e.g. the ORCID id to its web address.
 
 =cut
 				my $id	=		_expand_CURIEs($config, $_->{id});
@@ -117,15 +107,15 @@ configuration file and links e.g. the
 					$text =   '['.$text.']('.$id.')' }
 				elsif ($id =~ /\w/) {
 					$text .=  ' ('.$id.')' }
-				$markdown 	.=  "\n    - ".$text."  ";
+				$md 		.=  "\n    - ".$text."  ";
 	}}}
-  $markdown  		.=  <<END;
+  $md  					.=  <<END;
 
 $config->{jekyll_excerpt_separator}
 
-#### Source
+### Source
 
-* [raw source](./$file_name)
+* raw source [[YAML](./$files->{input_class}.yaml)] [[JSON](./$files->{input_class}.json)] 
 * [Github]($yaml_github_web_link)
 
 ### Properties
@@ -137,18 +127,17 @@ $config->{jekyll_excerpt_separator}
   </tr>
 END
 
-  foreach my $property ( sort keys %{ $data->{properties} } ) {
-    
-		my $label	=		_format_property_type_html($data->{properties}->{$property});
-    $markdown .=  <<END;
+  foreach my $property ( sort keys %{ $data->{properties} } ) {  
+		my $label		=		_format_property_type_html($data->{properties}->{$property});
+    $md 				.=  <<END;
   <tr>
     <td>$property</td>
     <td>$label</td>
   </tr>
 END
-    }
+  }
 
-  $markdown   .=  "\n".'</table>'."\n\n";
+  $md   				.=  "\n".'</table>'."\n\n";
 
 =podmd
 The property overview is followed by the listing of the properties, including
@@ -157,10 +146,8 @@ descriptions and examples.
 =cut
    
   foreach my $property ( sort keys %{ $data->{properties} } ) {
-
-		my $label	=		_format_property_type_html($data->{properties}->{$property});
-    
-    $markdown   .=  <<END;
+		my $label		=		_format_property_type_html($data->{properties}->{$property});   
+    $md   			.=  <<END;
     
 #### $property
 
@@ -170,17 +157,17 @@ $data->{properties}->{$property}->{'description'}
 
 END
 
-		$markdown 	.=  "##### `$property` Value "._pluralize("Example", $data->{properties}->{$property}->{'examples'})."  \n\n";	
+		$md 				.=  "##### `$property` Value "._pluralize("Example", $data->{properties}->{$property}->{'examples'})."  \n\n";	
 		foreach (@{ $data->{properties}->{$property}->{'examples'} }) {
-		  $markdown .=  "```\n".JSON::XS->new->pretty( 1 )->allow_nonref->canonical()->encode($_)."```\n";		
+		  $md 			.=  "```\n".JSON::XS->new->pretty( 1 )->allow_nonref->canonical()->encode($_)."```\n";		
 		}
 
 	}
    
 	if ($data->{'examples'}) {
-		$markdown 	.=  "\n### `$className` Value "._pluralize("Example", $data->{'examples'})."  \n\n";
+		$md 				.=  "\n### `$data->{title}` Value "._pluralize("Example", $data->{'examples'})."  \n\n";
 		foreach (@{ $data->{'examples'} }) {
-		    $markdown   .=  "```\n".JSON::XS->new->pretty( 1 )->canonical()->allow_nonref->encode($_)."```\n";		
+		  $md   		.=  "```\n".JSON::XS->new->pretty( 1 )->canonical()->allow_nonref->encode($_)."```\n";		
 		}
 	}
 
@@ -191,19 +178,27 @@ END
 
 =cut
 
+  copy($files->{input_yaml}, $files->{web_src_yaml});
+
   my $printout    =   JSON::XS->new->pretty( 1 )->canonical()->encode( $data->{examples} )."\n";
-	open  (FILE, ">", $expl_file) || warn 'output file '.$expl_file.' could not be created.';
+	print "writing $files->{exmpls_json}\n";
+	open  (FILE, ">", $files->{exmpls_json}) || warn 'output file '.$files->{exmpls_json}.' could not be created.';
 	print FILE  $printout;
 	close FILE;
 
-	print "writing $md_file\n";
-	open  (FILE, ">", $md_file) || warn 'output file '. $md_file.' could not be created.';
-	print FILE  $markdown."\n";
+	print "writing $files->{plain_md}\n";
+	open  (FILE, ">", $files->{plain_md}) || warn 'output file '. $files->{plain_md}.' could not be created.';
+	print FILE  $md."\n";
 	close FILE;
 
-  print "writing website file $md_web_file\n";
-  open  (FILE, ">", $md_web_file) || warn 'output file '. $md_web_file.' could not be created.';
-  print FILE  $jekyll_header.$markdown."\n";
+	print "writing $files->{web_src_json}\n";
+	open  (FILE, ">", $files->{web_src_json}) || warn 'output file '. $files->{web_src_json}.' could not be created.';
+	print FILE  JSON::XS->new->pretty( 1 )->canonical()->allow_nonref->encode($data)."\n";
+	close FILE;
+
+	print "writing $files->{jekyll_md}\n";
+	open  (FILE, ">", $files->{jekyll_md}) || warn 'output file '. $files->{jekyll_md}.' could not be created.';
+  print FILE  $jekyll_header.$md."\n";
   close FILE;
 
 }
@@ -211,12 +206,16 @@ END
 ################################################################################
 # helpers
 ################################################################################
+  
+################################################################################
+
 
 sub _check_paths {
 
   my $config 		=   shift;
 
 	foreach my $path (grep { /_rel/ } keys %{$config->{paths}}) {
+		$config->{paths}->{$path}	=		$config->{here_path}.'/'.$config->{paths}->{$path};
 		if (! -d $config->{paths}->{$path}) {
 			print <<END;
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -230,6 +229,68 @@ END
 	
 		}
 	}
+	
+	return $config;
+	
+}
+
+################################################################################
+
+sub _create_file_paths {
+
+	my ($config, $file_path)	=		@_;
+	my @pathEls		=		split('/', $file_path);
+	
+	my $class			=		$pathEls[-1];
+	$class				=~	s/\.\w+?$//;
+	return		{
+		input_yaml	=>	$file_path,
+		input_name	=>	$pathEls[-1],
+		input_class	=>	$class,
+		input_dir		=>	$pathEls[-2],
+		exmpls_json => 	join('/', 
+											$config->{paths}->{json_path_rel},
+											$class.'-examples.json'
+										),
+		plain_md		=>	join('/', 
+											$config->{paths}->{md_path_rel},
+											$class.'.md'
+										),
+		web_src_yaml =>	join('/', 
+											$config->{paths}->{md_web_schemas_src_rel},
+											$class.'.yaml'
+										),
+		web_src_json =>	join('/', 
+											$config->{paths}->{md_web_schemas_src_rel},
+											$class.'.json'
+										),
+		jekyll_md 	=> 	join('/', 
+											$config->{paths}->{md_web_doc_rel},
+											$config->{generator_prefix}.$class.'.md'
+										)
+	};
+
+}
+
+################################################################################
+
+sub _check_class_name {
+
+	my ($file_name, $class)	=	@_;
+	
+  if ($file_name ne $class) {
+		print <<END;
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Mismatch between file name
+	$file_name
+and class name from "title" parameter
+	$class
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+END
+  
+  }
 }
 
 ################################################################################
@@ -257,11 +318,15 @@ sub _process_input_dirs {
 	my $config		=		shift;
 
 	foreach my $src_dir (@{ $config->{paths}->{'src_dirs'} }) {
-		opendir DIR, '../'.$src_dir;
+		opendir DIR, $config->{here_path}.'/'.$src_dir;
 		foreach (grep{ /ya?ml$/ } readdir(DIR)) {
 			_process_yaml(
 				$config,
-				$src_dir,
+				join('/', 
+					$config->{here_path},
+					$src_dir,
+					$_
+				),
 				$_
 			);
 		}
@@ -317,15 +382,13 @@ sub _format_property_type_html {
 
 sub _create_jekyll_header {
 
-# TODO: tune header parameters, e.g. permalink, tags ...
-
 	my $config		=		shift;
-	my $className	=		shift;
+	my $class			=		shift;
 	return 	<<END;
 ---
-title: '$className'
+title: '$class'
 layout: default
-permalink: "$config->{paths}->{md_web_doc_link}/$className.html"
+permalink: "$config->{paths}->{md_web_doc_link}/$class.html"
 excerpt_separator: $config->{jekyll_excerpt_separator}
 category:
   - schemas

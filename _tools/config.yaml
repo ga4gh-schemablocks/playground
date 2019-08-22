@@ -1,7 +1,7 @@
 ---
 paths:
   src_dirs:
-    - sb-meta
+    - '../sb-meta'
   json_path_rel: '../_json'
   md_path_rel: '../_markdown'
   md_web_doc_rel: '../../ga4gh-schemablocks.github.io/pages/_schemas/ga4gh'
