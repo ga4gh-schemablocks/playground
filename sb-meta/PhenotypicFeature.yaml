@@ -63,53 +63,53 @@ properties:
       subclasses of HP:0012823 ! Clinical modifier apart from Severity HP:0012824 - Severity
     type: array
     items:
-      - "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
+      "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
     examples:
       - id: 'HP:0025282'
         label: 'Dull'
   ageOfOnset:
-    allof:
-      - "$ref": https://schemablocks.org/schemas/ga4gh/Age.yaml
-      - description: |
-          the values of this will come from the HPO onset hierarchy i.e. subclasses of HP:0003674
-          FHIR mapping: Condition.onset
-        examples:
-          - age: 'P35Y'
+    items:
+      "$ref": https://schemablocks.org/schemas/ga4gh/Age.yaml
+      description: |
+        the values of this will come from the HPO onset hierarchy i.e. subclasses of HP:0003674
+        FHIR mapping: Condition.onset
+      examples:
+        - age: 'P35Y'
+          ageClass:
+            id: 'HP:0003596'
+            label: 'Middle age onset'
+  ageRangeOfOnset:
+    items:
+      "$ref": https://schemablocks.org/schemas/ga4gh/AgeRange.yaml
+      description: |
+        the values of this will come from the HPO onset hierarchy i.e. subclasses of HP:0003674
+        FHIR mapping: Condition.onset
+      examples:
+        - start:
+            age: 'P35Y'
             ageClass:
               id: 'HP:0003596'
               label: 'Middle age onset'
-  ageRangeOfOnset:
-    allof:
-      - "$ref": https://schemablocks.org/schemas/ga4gh/AgeRange.yaml
-      - description: |
-          the values of this will come from the HPO onset hierarchy i.e. subclasses of HP:0003674
-          FHIR mapping: Condition.onset
-        examples:
-          - start:
-              age: 'P35Y'
-              ageClass:
-                id: 'HP:0003596'
-                label: 'Middle age onset'
   classOfOnset:
-    allof:
-      - "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
-      - description: |
-          the values of this will come from the HPO onset hierarchy i.e. subclasses of HP:0003674
-          FHIR mapping: Condition.onset
-        examples:
-          - id: 'HP:0003596'
-            label: 'Middle age onset'
+    items:
+      "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
+      description: |
+        the values of this will come from the HPO onset hierarchy i.e. subclasses of HP:0003674
+        FHIR mapping: Condition.onset
+      examples:
+        - id: 'HP:0003596'
+          label: 'Middle age onset'
   evidence:
-    allof:
-      - "$ref": https://schemablocks.org/schemas/ga4gh/Evidence.yaml
-      - description: Evidences for how the phenotype was determined.
-        examples:
-          - evidenceCode:
-              id: 'add example'
-              label: 'add example'
-            reference:
-              id: 'add example'
-              description: 'add example'
+    items:
+      "$ref": https://schemablocks.org/schemas/ga4gh/Evidence.yaml
+      description: Evidences for how the phenotype was determined.
+      examples:
+        - evidenceCode:
+            id: 'add example'
+            label: 'add example'
+          reference:
+            id: 'add example'
+            description: 'add example'
 required:
   - type
 oneof:

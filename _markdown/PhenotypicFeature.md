@@ -56,7 +56,7 @@
   </tr>
   <tr>
     <td>modifiers</td>
-    <td>array of https://schemablocks.org/schemas/ga4gh/OntologyClass/v0.0.1</td>
+    <td>array of https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.html" target="_BLANK">HTML</a>]</td>
   </tr>
   <tr>
     <td>negated</td>
@@ -126,19 +126,18 @@ phenotype - the type and onset etc... fields should be used for this purpose.
     
 #### modifiers
 
-* type: array of https://schemablocks.org/schemas/ga4gh/OntologyClass/v0.0.1
+* type: array of https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.html" target="_BLANK">HTML</a>]
 
 subclasses of HP:0012823 ! Clinical modifier apart from Severity HP:0012824 - Severity
+
 
 ##### `modifiers` Value Example  
 
 ```
-[
-   {
-      "id" : "HP:0025282",
-      "label" : "Dull"
-   }
-]
+{
+   "id" : "HP:0025282",
+   "label" : "Dull"
+}
 ```
     
 #### negated
