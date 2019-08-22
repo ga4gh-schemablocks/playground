@@ -27,8 +27,8 @@ properties:
       URI for the file
     type: string
     examples:
-      - file://data/genomes/file1.vcf.gz
-      - https://opensnp.org/data/60.23andme-exome-vcf.231?1341012444
+      - 'file://data/genomes/file1.vcf.gz'
+      - 'https://opensnp.org/data/60.23andme-exome-vcf.231?1341012444'
   description:
     description: |
       description of the file contents

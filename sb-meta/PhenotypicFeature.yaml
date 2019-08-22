@@ -32,7 +32,7 @@ properties:
       - 'Pancreatic Adenocarcinoma'
   type:
     allof:
-      - "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass/v0.0.1
+      - "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
       - description: |
           The primary ontology class which describes the phenotype.
           FHIR mapping: Condition.identifier
@@ -51,7 +51,7 @@ properties:
       - 'false'
   severity:
     allof:
-      - "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass/v0.0.1
+      - "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
       - description: |
           Severity of the condition e.g. subclasses of HP:0012824-Severity or SNOMED:272141005-Severities
           FHIR mapping: Condition.severity
@@ -59,16 +59,17 @@ properties:
           - id: 'HP:0012825'
             label: 'Mild'
   modifiers:
-    description: subclasses of HP:0012823 ! Clinical modifier apart from Severity HP:0012824 - Severity
+    description: |
+      subclasses of HP:0012823 ! Clinical modifier apart from Severity HP:0012824 - Severity
     type: array
     items:
-      "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass/v0.0.1
+      - "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
     examples:
-      - - id: 'HP:0025282'
-          label: 'Dull'
+      - id: 'HP:0025282'
+        label: 'Dull'
   ageOfOnset:
     allof:
-      - "$ref": https://schemablocks.org/schemas/ga4gh/Age/v0.0.1
+      - "$ref": https://schemablocks.org/schemas/ga4gh/Age.yaml
       - description: |
           the values of this will come from the HPO onset hierarchy i.e. subclasses of HP:0003674
           FHIR mapping: Condition.onset
@@ -79,7 +80,7 @@ properties:
               label: 'Middle age onset'
   ageRangeOfOnset:
     allof:
-      - "$ref": https://schemablocks.org/schemas/ga4gh/AgeRange/v0.0.1
+      - "$ref": https://schemablocks.org/schemas/ga4gh/AgeRange.yaml
       - description: |
           the values of this will come from the HPO onset hierarchy i.e. subclasses of HP:0003674
           FHIR mapping: Condition.onset
@@ -91,7 +92,7 @@ properties:
                 label: 'Middle age onset'
   classOfOnset:
     allof:
-      - "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass/v0.0.1
+      - "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
       - description: |
           the values of this will come from the HPO onset hierarchy i.e. subclasses of HP:0003674
           FHIR mapping: Condition.onset
@@ -100,7 +101,7 @@ properties:
             label: 'Middle age onset'
   evidence:
     allof:
-      - "$ref": https://schemablocks.org/schemas/ga4gh/Evidence/v0.0.1
+      - "$ref": https://schemablocks.org/schemas/ga4gh/Evidence.yaml
       - description: Evidences for how the phenotype was determined.
         examples:
           - evidenceCode:

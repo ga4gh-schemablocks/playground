@@ -38,8 +38,8 @@ properties:
         examples:
           - id: 'PMID:30808312'
             description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report.'
-#required:
-#  - evidenceCode
+required:
+  - evidenceCode
 examples:
   - evidenceCode:
       id: 'add example'

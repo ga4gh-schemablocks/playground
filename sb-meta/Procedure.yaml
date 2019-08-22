@@ -26,7 +26,7 @@ meta:
 properties:
   code:
     allof:
-      - "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass/v0.0.1
+      - "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
       - description: |
           FHIR mapping - Procedure.code
         examples:
@@ -34,7 +34,7 @@ properties:
             label: 'Funch Biopsy'
   bodySite:
     allof:
-      - "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass/v0.0.1
+      - "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
       - description: |
           FHIR mapping - Procedure.bodySite
         examples:
