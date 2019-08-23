@@ -54,8 +54,7 @@ sub _process_yaml {
   print "Reading YAML file \"$files->{input_yaml}\"\n";
 
   my $data      =   LoadFile($files->{input_yaml});
-  _check_class_name($files->{input_class}, $data->{title});
-  
+
 =podmd
 The class name is extracted from the file's "title" value.
 Processing is skipped if the class name does not consist of word character, or
@@ -63,28 +62,24 @@ if a filter had been provided and the class name doesn't match.
 
 =cut
 
-  if ($data->{title} !~ /^\w+?$/) { return }
-  
+  _check_class_name($files->{input_class}, $data->{title});  
+
+  if ($data->{title} !~ /^\w+?$/) { return }  
 	if ($args{-filter} =~ /.../) {
 		if ($data->{title} !~ /$args{-filter}/) {
 			return } }
 
-  my $jekyll_header =   _create_jekyll_header($config, $data->{title});
-
 =podmd
-The web file for the Jekyll / GH-pages processing gets a prefix, to ensure that
-auto-generated and normal pages can be separated.
-
 The documentation is extracted from the $data object and formatted into a
 markdown document.
 
 =cut
 
+  my $jekyll_header =   _create_jekyll_header($config, $data->{title});
+
   my $md  			=   <<END;
 
 ## $data->{title}
-
-### SchemaBlocks Metadata
 
 * {S}[B] Status  [[i]]($config->{links}->{sb_status_levels})
     - __$data->{meta}->{sb_status}__
@@ -167,13 +162,21 @@ END
 }
 
 ################################################################################
+################################################################################
 # helpers
 ################################################################################
-  
 ################################################################################
 
-
 sub _check_paths {
+
+=podmd
+The generation of file paths is based on the assumptions that:
+
+* the processing script (i.e. this file) resides in a "_tools" directory in the 
+root of a git repository (name of directory not relevant)
+* that other directories are defined relative to it
+
+=cut
 
   my $config 		=   shift;
 
@@ -198,8 +201,19 @@ END
 }
 
 ################################################################################
+################################################################################
 
 sub _create_file_paths {
+
+=podmd
+Paths for the output files are created from the pre-generated directory paths 
+and variables (class, parent directory name) which are extracted from the full 
+path of the input file.
+
+The web file for the Jekyll / GH-pages processing gets a prefix, to ensure that
+auto-generated and normal pages can be separated.
+
+=cut
 
 	my ($config, $file_path)	=		@_;
 	my @pathEls		=		split('/', $file_path);
@@ -236,6 +250,7 @@ sub _create_file_paths {
 }
 
 ################################################################################
+################################################################################
 
 sub _check_class_name {
 
@@ -257,6 +272,7 @@ END
 }
 
 ################################################################################
+################################################################################
 
 sub _delete_generated_files { 
 
@@ -274,6 +290,7 @@ sub _delete_generated_files {
 
 }
 
+################################################################################
 ################################################################################
 
 sub _process_input_dirs {
@@ -298,6 +315,7 @@ sub _process_input_dirs {
 
 }
 
+################################################################################
 ################################################################################
 
 sub _parse_properties {
@@ -359,6 +377,7 @@ END
 }
 
 ################################################################################
+################################################################################
 
 sub _expand_CURIEs {
 
@@ -374,6 +393,7 @@ sub _expand_CURIEs {
 
 }
 
+################################################################################
 ################################################################################
 
 sub _format_property_type_html {
@@ -402,6 +422,7 @@ sub _format_property_type_html {
 }
 
 ################################################################################
+################################################################################
 
 sub _create_jekyll_header {
 
@@ -423,6 +444,7 @@ END
 
 }
 
+################################################################################
 ################################################################################
 
 sub _pluralize {

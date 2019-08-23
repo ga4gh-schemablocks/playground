@@ -1,19 +1,17 @@
 
 ## Curie
 
-### SchemaBlocks Metadata
-
 * {S}[B] Status  [[i]](https://schemablocks.org/about/sb-status-levels.html)
     - __implemented__
 
 
 * Provenance  
 
-    - vr-spec  
+    - [vr-spec](https://github.com/ga4gh/vr-spec/blob/master/schema/vr.yaml)  
 
 * Used by  
 
-    - vr-spec  
+    - [vr-spec](https://github.com/ga4gh/vr-spec/blob/master/schema/vr.yaml)  
 
 * Contributors  
 

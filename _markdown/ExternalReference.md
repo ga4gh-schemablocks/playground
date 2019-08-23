@@ -1,8 +1,6 @@
 
 ## ExternalReference
 
-### SchemaBlocks Metadata
-
 * {S}[B] Status  [[i]](https://schemablocks.org/about/sb-status-levels.html)
     - __implemented__
 
@@ -17,9 +15,9 @@
 
 * Contributors  
 
+    - [Michael Baudis](https://orcid.org/0000-0002-9903-4248)  
     - [Jules Jacobsen](https://orcid.org/0000-0002-3265-15918)  
     - [Peter Robinson](https://orcid.org/0000-0002-0736-91998)  
-    - [Michael Baudis](https://orcid.org/0000-0002-9903-4248)  
 <!--more-->
 
 ### Source
@@ -82,7 +80,7 @@ of a URI (CURIE or URL recommended).
 "cellosaurus:CVCL_0312"
 ```
 ```
-"PMID:22824167"
+"PMID:15254584"
 ```
 
 

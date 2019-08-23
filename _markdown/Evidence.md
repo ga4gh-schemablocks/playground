@@ -1,8 +1,6 @@
 
 ## Evidence
 
-### SchemaBlocks Metadata
-
 * {S}[B] Status  [[i]](https://schemablocks.org/about/sb-status-levels.html)
     - __implemented__
 
@@ -19,7 +17,6 @@
 
     - [Jules Jacobsen](https://orcid.org/0000-0002-3265-15918)  
     - [Peter Robinson](https://orcid.org/0000-0002-0736-91998)  
-    - [Michael Baudis](https://orcid.org/0000-0002-9903-4248)  
 <!--more-->
 
 ### Source
