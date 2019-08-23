@@ -29,9 +29,10 @@
 * [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/HtsFile.yaml)
 
 ### Attributes
+  
+__Type:__ object  
+__Description:__ A file in one of the HTS formats (https://samtools.github.io/hts-specs)
 
-* Type: 
-    - object
 
 ### Properties
 

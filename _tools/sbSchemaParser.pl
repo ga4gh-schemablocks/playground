@@ -121,12 +121,8 @@ $config->{jekyll_excerpt_separator}
 ### Attributes
 END
 
-	if ($data->{'type'}) {
-		$md 				.=  "\n* Type: \n    - $data->{type}" }
-	if ($data->{'format'}) {
-		$md 				.=  "\n* Format: \n    - $data->{format}" }
-	if ($data->{'pattern'}) {
-		$md 				.=  "\n* Pattern: \n    - `$data->{pattern}`" }
+	foreach my $attr (grep{ $data->{$_} =~ /\w/ }  qw(type format pattern description)) {
+		$md 				.=  "  \n__".ucfirst($attr).":__ $data->{$attr}" }
 
 	if ($data->{type} =~ /object/i) {
 		$md						=		_parse_properties($data, $md) }

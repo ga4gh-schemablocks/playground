@@ -29,9 +29,9 @@
 * [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/AgeRange.yaml)
 
 ### Attributes
-
-* Type: 
-    - object
+  
+__Type:__ object  
+__Description:__ Age range
 
 ### Properties
 
