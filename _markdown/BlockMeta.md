@@ -25,6 +25,11 @@
 * raw source [[YAML](./BlockMeta.yaml)] [[JSON](./BlockMeta.json)] 
 * [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/BlockMeta.yaml)
 
+### Attributes
+
+* Type: 
+    - object
+
 ### Properties
 
 <table>
@@ -154,6 +159,7 @@ of the schema.
    "id" : "https://github.com/progenetix/schemas/tree/master/main/yaml"
 }
 ```
+
 
 ### `BlockMeta` Value Example  
 

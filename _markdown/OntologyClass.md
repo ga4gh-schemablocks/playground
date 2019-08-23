@@ -31,6 +31,11 @@
 * raw source [[YAML](./OntologyClass.yaml)] [[JSON](./OntologyClass.json)] 
 * [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/OntologyClass.yaml)
 
+### Attributes
+
+* Type: 
+    - object
+
 ### Properties
 
 <table>
@@ -73,6 +78,7 @@ the text label associated with the term
 ```
 "Pancreatic Adenocarcinoma"
 ```
+
 
 ### `OntologyClass` Value Examples  
 

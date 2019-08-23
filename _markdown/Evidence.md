@@ -27,6 +27,11 @@
 * raw source [[YAML](./Evidence.yaml)] [[JSON](./Evidence.json)] 
 * [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/Evidence.yaml)
 
+### Attributes
+
+* Type: 
+    - object
+
 ### Properties
 
 <table>
@@ -62,6 +67,7 @@
 
 
 ##### `reference` Value Example  
+
 
 
 ### `Evidence` Value Example  

@@ -27,6 +27,11 @@
 * raw source [[YAML](./ExternalReference.yaml)] [[JSON](./ExternalReference.json)] 
 * [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/ExternalReference.yaml)
 
+### Attributes
+
+* Type: 
+    - object
+
 ### Properties
 
 <table>
@@ -77,6 +82,7 @@ of a URI (CURIE or URL recommended).
 ```
 "PMID:22824167"
 ```
+
 
 ### `ExternalReference` Value Examples  
 

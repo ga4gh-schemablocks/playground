@@ -118,54 +118,21 @@ $config->{jekyll_excerpt_separator}
 * raw source [[YAML](./$files->{input_class}.yaml)] [[JSON](./$files->{input_class}.json)] 
 * [Github]($yaml_github_web_link)
 
-### Properties
-
-<table>
-  <tr>
-    <th>Property</th>
-    <th>Type</th>
-  </tr>
+### Attributes
 END
 
-  foreach my $property ( sort keys %{ $data->{properties} } ) {  
-		my $label		=		_format_property_type_html($data->{properties}->{$property});
-    $md 				.=  <<END;
-  <tr>
-    <td>$property</td>
-    <td>$label</td>
-  </tr>
-END
-  }
+	if ($data->{'type'}) {
+		$md 				.=  "\n* Type: \n    - $data->{type}" }
+	if ($data->{'format'}) {
+		$md 				.=  "\n* Format: \n    - $data->{format}" }
+	if ($data->{'pattern'}) {
+		$md 				.=  "\n* Pattern: \n    - `$data->{pattern}`" }
 
-  $md   				.=  "\n".'</table>'."\n\n";
-
-=podmd
-The property overview is followed by the listing of the properties, including
-descriptions and examples.
-
-=cut
-   
-  foreach my $property ( sort keys %{ $data->{properties} } ) {
-		my $label		=		_format_property_type_html($data->{properties}->{$property});   
-    $md   			.=  <<END;
-    
-#### $property
-
-* type: $label
-
-$data->{properties}->{$property}->{'description'}
-
-END
-
-		$md 				.=  "##### `$property` Value "._pluralize("Example", $data->{properties}->{$property}->{'examples'})."  \n\n";	
-		foreach (@{ $data->{properties}->{$property}->{'examples'} }) {
-		  $md 			.=  "```\n".JSON::XS->new->pretty( 1 )->allow_nonref->canonical()->encode($_)."```\n";		
-		}
-
-	}
+	if ($data->{type} =~ /object/i) {
+		$md						=		_parse_properties($data, $md) }
    
 	if ($data->{'examples'}) {
-		$md 				.=  "\n### `$data->{title}` Value "._pluralize("Example", $data->{'examples'})."  \n\n";
+		$md 				.=  "\n\n### `$data->{title}` Value "._pluralize("Example", $data->{'examples'})."  \n\n";
 		foreach (@{ $data->{'examples'} }) {
 		  $md   		.=  "```\n".JSON::XS->new->pretty( 1 )->canonical()->allow_nonref->encode($_)."```\n";		
 		}
@@ -333,6 +300,66 @@ sub _process_input_dirs {
 		close DIR;
 	}
 
+}
+
+################################################################################
+
+sub _parse_properties {
+
+	my $data			=		shift;
+	my $md				=		shift;
+	
+  $md  					.=  <<END;
+
+
+### Properties
+
+<table>
+  <tr>
+    <th>Property</th>
+    <th>Type</th>
+  </tr>
+END
+
+  foreach my $property ( sort keys %{ $data->{properties} } ) {  
+		my $label		=		_format_property_type_html($data->{properties}->{$property});
+    $md 				.=  <<END;
+  <tr>
+    <td>$property</td>
+    <td>$label</td>
+  </tr>
+END
+  }
+
+  $md   				.=  "\n".'</table>'."\n\n";
+
+=podmd
+The property overview is followed by the listing of the properties, including
+descriptions and examples.
+
+=cut
+   
+  foreach my $property ( sort keys %{ $data->{properties} } ) {
+		my $label		=		_format_property_type_html($data->{properties}->{$property});   
+    $md   			.=  <<END;
+    
+#### $property
+
+* type: $label
+
+$data->{properties}->{$property}->{'description'}
+
+END
+
+		$md 				.=  "##### `$property` Value "._pluralize("Example", $data->{properties}->{$property}->{'examples'})."  \n\n";	
+		foreach (@{ $data->{properties}->{$property}->{'examples'} }) {
+		  $md 			.=  "```\n".JSON::XS->new->pretty( 1 )->allow_nonref->canonical()->encode($_)."```\n";		
+		}
+
+	}
+	
+	return $md;
+	
 }
 
 ################################################################################

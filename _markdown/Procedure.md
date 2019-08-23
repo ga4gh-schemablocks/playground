@@ -28,6 +28,11 @@
 * raw source [[YAML](./Procedure.yaml)] [[JSON](./Procedure.json)] 
 * [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/Procedure.yaml)
 
+### Attributes
+
+* Type: 
+    - object
+
 ### Properties
 
 <table>
@@ -63,6 +68,7 @@
 
 
 ##### `code` Value Example  
+
 
 
 ### `Procedure` Value Example  

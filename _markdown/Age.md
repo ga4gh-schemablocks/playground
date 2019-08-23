@@ -27,6 +27,11 @@
 * raw source [[YAML](./Age.yaml)] [[JSON](./Age.json)] 
 * [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/Age.yaml)
 
+### Attributes
+
+* Type: 
+    - object
+
 ### Properties
 
 <table>
@@ -79,6 +84,7 @@ to either use an "age of onset" ontology or an "Age" class.
    "label" : "infant stage"
 }
 ```
+
 
 ### `Age` Value Examples  
 
