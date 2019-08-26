@@ -21,8 +21,8 @@
 
 ### Source
 
-* raw source [[YAML](./Evidence.yaml)] [[JSON](./Evidence.json)] 
-* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/Evidence.yaml)
+* raw source [[JSON](./Evidence.json)] 
+* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/src/Evidence.yaml)
 
 ### Attributes
   

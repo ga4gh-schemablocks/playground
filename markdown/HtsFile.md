@@ -21,8 +21,8 @@
 
 ### Source
 
-* raw source [[YAML](./HtsFile.yaml)] [[JSON](./HtsFile.json)] 
-* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/HtsFile.yaml)
+* raw source [[JSON](./HtsFile.json)] 
+* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/src/HtsFile.yaml)
 
 ### Attributes
   

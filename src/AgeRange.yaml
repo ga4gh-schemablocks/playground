@@ -22,12 +22,12 @@ meta:
   sb_status: implemented
 properties:
   start:
-    "$ref": https://schemablocks.org/schemas/ga4gh/Age.yaml
+    "$ref": https://schemablocks.org/schemas/ga4gh/Age.json
     description: Age as ISO8601 string or OntologyClass
     examples:
       - age: 'P12Y'
   end:
-    "$ref": https://schemablocks.org/schemas/ga4gh/Age.yaml
+    "$ref": https://schemablocks.org/schemas/ga4gh/Age.json
     description: Age as ISO8601 string or OntologyClass
     examples:
       - ageClass:

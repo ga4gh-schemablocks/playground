@@ -20,7 +20,7 @@ meta:
 properties:
   evidenceCode:
     allof:
-      - "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass/v0.0.1
+      - "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.json
       - description: |
           The encoded evidence type using, for example the Evidence & Conclusion Ontology
           (ECO - http://purl.obolibrary.org/obo/eco.owl)
@@ -30,7 +30,7 @@ properties:
             label: 'add example'
   reference:
     allof:
-      - "$ref": https://schemablocks.org/schemas/ga4gh/ExternalReference/v0.0.1
+      - "$ref": https://schemablocks.org/schemas/ga4gh/ExternalReference.json
       - description: |
           FHIR mapping - Condition.evidence.detail
         examples:

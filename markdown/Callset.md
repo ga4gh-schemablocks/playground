@@ -21,8 +21,8 @@
 
 ### Source
 
-* raw source [[YAML](./Callset.yaml)] [[JSON](./Callset.json)] 
-* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/Callset.yaml)
+* raw source [[JSON](./Callset.json)] 
+* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/src/Callset.yaml)
 
 ### Attributes
   
@@ -49,7 +49,7 @@ variants detected in this experiment, attributed to the referenced biosample.
   </tr>
   <tr>
     <td>data_use_conditions</td>
-    <td>https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.html" target="_BLANK">HTML</a>]</td>
+    <td>https://schemablocks.org/schemas/ga4gh/OntologyClass.json [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.html" target="_BLANK">HTML</a>]</td>
   </tr>
   <tr>
     <td>description</td>
@@ -57,7 +57,7 @@ variants detected in this experiment, attributed to the referenced biosample.
   </tr>
   <tr>
     <td>geo_provenance</td>
-    <td>https://schemablocks.org/schemas/ga4gh/GeoLocation.yaml [<a href="https://schemablocks.org/schemas/ga4gh/GeoLocation.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/GeoLocation.html" target="_BLANK">HTML</a>]</td>
+    <td>https://schemablocks.org/schemas/ga4gh/GeoLocation.json [<a href="https://schemablocks.org/schemas/ga4gh/GeoLocation.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/GeoLocation.html" target="_BLANK">HTML</a>]</td>
   </tr>
   <tr>
     <td>id</td>
@@ -103,7 +103,7 @@ implementations may transfer this to a date object.
     
 #### data_use_conditions
 
-* type: https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.html" target="_BLANK">HTML</a>]
+* type: https://schemablocks.org/schemas/ga4gh/OntologyClass.json [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/OntologyClass.html" target="_BLANK">HTML</a>]
 
 Data use conditions applying to data from this callset, as ontology class 
 (e.g. DUO).
@@ -133,7 +133,7 @@ A free text description about the callset.
     
 #### geo_provenance
 
-* type: https://schemablocks.org/schemas/ga4gh/GeoLocation.yaml [<a href="https://schemablocks.org/schemas/ga4gh/GeoLocation.yaml" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/GeoLocation.html" target="_BLANK">HTML</a>]
+* type: https://schemablocks.org/schemas/ga4gh/GeoLocation.json [<a href="https://schemablocks.org/schemas/ga4gh/GeoLocation.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/GeoLocation.html" target="_BLANK">HTML</a>]
 
 This geo_class attribute ideally describes the geographic location of 
 where this callset was analysed.

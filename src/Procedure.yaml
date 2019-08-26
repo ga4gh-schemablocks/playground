@@ -21,14 +21,14 @@ meta:
   sb_status: implemented
 properties:
   code:
-    "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
+    "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.json
     description: |
       FHIR mapping - Procedure.code
     examples:
       - id: 'NCIT:C28743'
         label: 'Punch Biopsy'
   bodySite:
-      "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
+      "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.json
       description: |
         FHIR mapping - Procedure.bodySite
       examples:

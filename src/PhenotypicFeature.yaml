@@ -32,7 +32,7 @@ properties:
     examples:
       - 'Pancreatic Adenocarcinoma'
   type:
-    "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
+    "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.json
     description: |
       The primary ontology class which describes the phenotype.
       FHIR mapping: Condition.identifier
@@ -50,7 +50,7 @@ properties:
     examples:
       - 'false'
   severity:
-    "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
+    "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.json
     description: |
       Severity of the condition e.g. subclasses of HP:0012824-Severity or 
       SNOMED:272141005-Severities.
@@ -64,12 +64,12 @@ properties:
       HP:0012824 - Severity.
     type: array
     items:
-      "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
+      "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.json
     examples:
       - id: 'HP:0025282'
         label: 'Dull'
   ageOfOnset:
-    "$ref": https://schemablocks.org/schemas/ga4gh/Age.yaml
+    "$ref": https://schemablocks.org/schemas/ga4gh/Age.json
     description: |
       The values of this will come from the HPO onset hierarchy i.e. subclasses 
       of HP:0003674.
@@ -80,7 +80,7 @@ properties:
           id: 'HP:0003596'
           label: 'Middle age onset'
   ageRangeOfOnset:
-    "$ref": https://schemablocks.org/schemas/ga4gh/AgeRange.yaml
+    "$ref": https://schemablocks.org/schemas/ga4gh/AgeRange.json
     description: |
       The values of this will come from the HPO onset hierarchy i.e. subclasses 
       of HP:0003674.
@@ -94,7 +94,7 @@ properties:
         end:
           age: 'P60Y'
   classOfOnset:
-    "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.yaml
+    "$ref": https://schemablocks.org/schemas/ga4gh/OntologyClass.json
     description: |
       the values of this will come from the HPO onset hierarchy i.e. subclasses of HP:0003674
       FHIR mapping: Condition.onset
@@ -104,7 +104,7 @@ properties:
   evidence:
     type: array
     items:
-      "$ref": https://schemablocks.org/schemas/ga4gh/Evidence.yaml
+      "$ref": https://schemablocks.org/schemas/ga4gh/Evidence.json
     description: Evidences for how the phenotype was determined.
     examples:
       - evidenceCode:

@@ -23,8 +23,8 @@
 
 ### Source
 
-* raw source [[YAML](./GeoLocation.yaml)] [[JSON](./GeoLocation.json)] 
-* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/GeoLocation.yaml)
+* raw source [[JSON](./GeoLocation.json)] 
+* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/src/GeoLocation.yaml)
 
 ### Attributes
   

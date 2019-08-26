@@ -110,7 +110,7 @@ $config->{jekyll_excerpt_separator}
 
 ### Source
 
-* raw source [[YAML](./$files->{input_class}.yaml)] [[JSON](./$files->{input_class}.json)] 
+* raw source [[JSON](./$files->{input_class}.json)] 
 * [Github]($yaml_github_web_link)
 
 ### Attributes
@@ -136,8 +136,6 @@ END
 
 =cut
 
-  copy($files->{input_yaml}, $files->{web_src_yaml});
-
   my $printout    =   JSON::XS->new->pretty( 1 )->canonical()->encode( $data->{examples} )."\n";
 	print "writing $files->{exmpls_json}\n";
 	open  (FILE, ">", $files->{exmpls_json}) || warn 'output file '.$files->{exmpls_json}.' could not be created.';
@@ -149,10 +147,12 @@ END
 	print FILE  $md."\n";
 	close FILE;
 
-	print "writing $files->{web_src_json}\n";
-	open  (FILE, ">", $files->{web_src_json}) || warn 'output file '. $files->{web_src_json}.' could not be created.';
-	print FILE  JSON::XS->new->pretty( 1 )->canonical()->allow_nonref->encode($data)."\n";
-	close FILE;
+	foreach (qw(src_json web_src_json)) {
+		print "writing $files->{$_}\n";
+		open  (FILE, ">", $files->{$_}) || warn 'output file '. $files->{$_}.' could not be created.';
+		print FILE  JSON::XS->new->pretty( 1 )->canonical()->allow_nonref->encode($data)."\n";
+		close FILE;
+	}
 
 	print "writing $files->{jekyll_md}\n";
 	open  (FILE, ">", $files->{jekyll_md}) || warn 'output file '. $files->{jekyll_md}.' could not be created.';
@@ -226,19 +226,19 @@ auto-generated and normal pages can be separated.
 		input_class	=>	$class,
 		input_dir		=>	$pathEls[-2],
 		exmpls_json => 	join('/', 
-											$config->{paths}->{json_path_rel},
+											$config->{paths}->{example_path_rel},
 											$class.'-examples.json'
 										),
 		plain_md		=>	join('/', 
 											$config->{paths}->{md_path_rel},
 											$class.'.md'
 										),
-		web_src_yaml =>	join('/', 
-											$config->{paths}->{md_web_schemas_src_rel},
-											$class.'.yaml'
+		src_json 		=>	join('/', 
+											$config->{paths}->{json_path_rel},
+											$class.'.json'
 										),
 		web_src_json =>	join('/', 
-											$config->{paths}->{md_web_schemas_src_rel},
+											$config->{paths}->{md_web_schemas_rel},
 											$class.'.json'
 										),
 		jekyll_md 	=> 	join('/', 

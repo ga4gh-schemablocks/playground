@@ -1,16 +1,18 @@
 ---
 paths:
   src_dirs:
-    - '../sb-meta'
-  json_path_rel: '../_json'
-  md_path_rel: '../_markdown'
+    - '../src'
+  json_path_rel: '../json'
+  example_path_rel: '../example_data'
+  md_path_rel: '../markdown'
   md_web_doc_rel: '../../ga4gh-schemablocks.github.io/pages/_schemas/ga4gh'
   md_web_doc_link: '/schemas/ga4gh'
-  md_web_schemas_src_rel: '../../ga4gh-schemablocks.github.io/schemas/ga4gh'
+  md_web_schemas_rel: '../../ga4gh-schemablocks.github.io/schemas/ga4gh'
   github_org_path: 'https://github.com/ga4gh-schemablocks'
-generator_prefix: '+generated__playground__'
+generator_prefix: '+generated__'
 jekyll_excerpt_separator: "<!--more-->"
 prefix_expansions:
   orcid: 'https://orcid.org/'
+  PMID: 'https://www.ncbi.nlm.nih.gov/pubmed/'
 links:
   sb_status_levels: "https://schemablocks.org/about/sb-status-levels.html"

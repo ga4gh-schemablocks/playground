@@ -22,8 +22,8 @@
 
 ### Source
 
-* raw source [[YAML](./ExternalReference.yaml)] [[JSON](./ExternalReference.json)] 
-* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/sb-meta/ExternalReference.yaml)
+* raw source [[JSON](./ExternalReference.json)] 
+* [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/src/ExternalReference.yaml)
 
 ### Attributes
   
