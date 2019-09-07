@@ -15,9 +15,9 @@
     - [Michael Baudis](https://orcid.org/0000-0002-9903-4248)  
 <!--more-->
 
-### Source
+### Source (v0.0.1)
 
-* raw source [[JSON](./BlockMeta.json)]
+* raw source [[JSON](./current/BlockMeta.json)]
 * [Github](https://github.com/ga4gh-schemablocks/playground/blob/master/schemas/BlockMeta.yaml)
 
 ### Attributes
@@ -36,11 +36,11 @@ e.g. the given block's provenance, scope, external usage.
   </tr>
   <tr>
     <td>contributors</td>
-    <td>array of https://schemablocks.org/schemas/ga4gh/ExternalReference.json [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]</td>
+    <td>array of https://schemablocks.org/schemas/ga4gh/v0.0.1/ExternalReference.json [<a href="https://schemablocks.org/schemas/ga4gh/v0.0.1/ExternalReference.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]</td>
   </tr>
   <tr>
     <td>provenance</td>
-    <td>array of https://schemablocks.org/schemas/ga4gh/ExternalReference.json [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]</td>
+    <td>array of https://schemablocks.org/schemas/ga4gh/v0.0.1/ExternalReference.json [<a href="https://schemablocks.org/schemas/ga4gh/v0.0.1/ExternalReference.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]</td>
   </tr>
   <tr>
     <td>sb_status</td>
@@ -48,7 +48,7 @@ e.g. the given block's provenance, scope, external usage.
   </tr>
   <tr>
     <td>use_cases</td>
-    <td>array of https://schemablocks.org/schemas/ga4gh/ExternalReference.json [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]</td>
+    <td>array of https://schemablocks.org/schemas/ga4gh/v0.0.1/ExternalReference.json [<a href="https://schemablocks.org/schemas/ga4gh/v0.0.1/ExternalReference.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]</td>
   </tr>
 
 </table>
@@ -56,7 +56,7 @@ e.g. the given block's provenance, scope, external usage.
 
 #### contributors
 
-* type: array of https://schemablocks.org/schemas/ga4gh/ExternalReference.json [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]
+* type: array of https://schemablocks.org/schemas/ga4gh/v0.0.1/ExternalReference.json [<a href="https://schemablocks.org/schemas/ga4gh/v0.0.1/ExternalReference.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]
 
 The `contributors` attribute provides a list of one or more contributors
 which had been involved in the block's definition or support its format.
@@ -73,7 +73,7 @@ which had been involved in the block's definition or support its format.
 
 #### provenance
 
-* type: array of https://schemablocks.org/schemas/ga4gh/ExternalReference.json [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]
+* type: array of https://schemablocks.org/schemas/ga4gh/v0.0.1/ExternalReference.json [<a href="https://schemablocks.org/schemas/ga4gh/v0.0.1/ExternalReference.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]
 
 The `provenance` attribute provides a list of pointers to e.g. external
 schemas, predecessors of the current schema or external documentation
@@ -134,7 +134,7 @@ levels is:
 
 #### use_cases
 
-* type: array of https://schemablocks.org/schemas/ga4gh/ExternalReference.json [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]
+* type: array of https://schemablocks.org/schemas/ga4gh/v0.0.1/ExternalReference.json [<a href="https://schemablocks.org/schemas/ga4gh/v0.0.1/ExternalReference.json" target="_BLANK">SRC</a>] [<a href="https://schemablocks.org/schemas/ga4gh/ExternalReference.html" target="_BLANK">HTML</a>]
 
 With the `use_cases` attribute one can provide links and descriptions
 for the use of a given block in an external implementation.
