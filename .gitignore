@@ -1,3 +1,9 @@
 _site
 example_data/.DS_Store
 doc/.DS_Store
+generated/json/current/.DS_Store
+generated/json/.DS_Store
+generated/json/v0.0.1/.DS_Store
+schemas/.DS_Store
+generated/examples/.DS_Store
+generated/doc/.DS_Store
