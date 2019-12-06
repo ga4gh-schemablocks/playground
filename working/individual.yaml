@@ -1,0 +1,152 @@
+info:
+  title: GA4GH SchemaBlocks - Individual
+  description: Prototype objects definitions
+  version: 2019-01-11
+definitions:
+  Individual:
+    description: |
+      An individual is a single organism (here typically a human).
+    status: proposed
+    properties:
+      id:
+        description: The local-unique identifier of this individual (referenced as "individual_id").
+        type: string
+        example: 'AM_BS__NCBISKYCGH-1993'
+      name:
+        type: string
+        description: |
+          A short descriptive "name" for the individual, which may or may not correspond to a "real name". Unstructured text.
+        example: 'Ion Tichy, space explorer'
+      description:
+        description: A free text description of the individual.
+        type: string
+        example: 'patient with lung cancer, male smoker'
+      data_use_conditions:
+        ref: './Ontology_term'
+        description: |
+          Data use conditions applying to data from this individual, as ontology object (e.g. DUO).
+        example:
+          id: 'DUO:0000004'
+          label: 'no restriction'
+      organism:
+        description: |
+          An NCBI taxonomy term describing the species of the individual.
+          For resources where there may be more than one organism being studied it is advisable to indicate the taxonomic identifier of that organism, to it's most specific level
+        ref: './Ontology_term'
+        example:
+          id : 'NCBITaxon:9606'
+          label : 'Homo sapiens'
+      sex:
+        description: |
+          A PATO term describing the biological sex of the individual
+        ref: './Ontology_term'
+        example:
+          id: 'PATO:0020000'
+          label : 'female genetic sex'
+      geo_provenance:
+        description: |
+          This geo_class attribute ideally describes the geographic location of where this individual originates from.
+          This value may reflect either the place of birth or residence, but frequently may correspond to the place the study was performed.
+        ref: './Geo_location'
+        example:
+          label: 'Str Marasesti 5, 300077 Timisoara, Romania'
+          city: 'Timisoara'
+          country: 'Romania'
+          latitude: 45.75
+          longitude: 21.23
+          altitude: 94
+      external_references:
+        description: |
+          Different representations of the same record, not different records in relation with this individual
+        type: array
+        items:
+          ref: './Reference'
+        example:
+          - description: 'Cellosaurus cell line identifier'
+            relation : "provenance"
+            type:
+              id : "cellosaurus:CVCL_0312"
+              label : "HOS"
+        queries:
+          - query: 'db.individuals.find( { "external_references.type.id" : "pubmed:17440070" } )'
+            description: |
+              The query will return all individuals which have been reported in experiments in this publication.
+      biocharacteristics:
+        description: |
+          list of Phenotype objects with properly prefixed term ids, describing features of the individual which are not specific to the reported biosample(s); typical examples here are sex, species and "systemic" phenotypes and diseases
+        type: array
+        items:
+          ref: './Phenotype'
+        example:
+          - description: 'Patient with Down syndrome'
+            type :
+              id : 'HP:0003745'
+              label : 'Genetic anticipation'
+        queries:
+          - query: 'db.individual.find( { "biocharacteristics.type.id" : "NCBITaxon:9606" } )'
+            description: the query will return all individuals who have been properly labeled as human
+          - query: 'db.biosamples.distinct( { "biocharacteristics.type.id", "biocharacteristics.type.id" : { $regex : /HP\:/i } } )'
+            description: this call to the distinct funcion will return *all* HPO annotated classes
+      info:
+        description: additional variant information, as defined in the example and accompanying documentation TODO this should be its own class
+        ref: './Info'
+        example:
+          first_name:
+            type: string
+            value: 'Ion'
+          last_name:
+            type: string
+            value: 'Tichy'
+      created:
+        description: |
+          The creation time of this record, in ISO8601
+        type: timestamp
+        example: '2017-10-25T07:06:03Z'
+      updated:
+        description: |
+          The time of the last edit of this record, in ISO8601
+        type: timestamp
+        example: '2022-11-11T09:45:13Z'
+    examples:
+      - id: 'AM_BS__NCBISKYCGH-1993'
+        name: 'Ion Tichy, space explorer'
+        description: 'patient with lung cancer, male smoker'
+        data_use_conditions:
+          id: 'DUO:0000004'
+          label: 'no restriction'
+        organism:
+          id: 'NCBITaxon:9606'
+          label: 'Homo sapiens'
+        sex:
+          id: 'PATO:0020000'
+          label: 'female genetic sex'
+        geo_provenance:
+          label: 'Str Marasesti 5, 300077 Timisoara, Romania'
+          city: 'Timisoara'
+          country: 'Romania'
+          latitude: 45.75
+          longitude: 21.23
+          altitude: 94
+        external_references:
+          - description: 'Cellosaurus cell line identifier'
+            relation: "provenance"
+            type:
+              id: "cellosaurus:CVCL_0312"
+              label: "HOS"
+        biocharacteristics:
+          - description: 'Patient with Down syndrome'
+            type:
+              id: 'HP:0003745'
+              label: 'Genetic anticipation'
+        info:
+          first_name:
+            type: string
+            value: 'Ion'
+          last_name:
+            type: string
+            value: 'Tichy'
+        created: '2017-10-25T07:06:03Z'
+        updated: '2017-10-25T07:06:03Z'
+    used_by:
+      - phenopackets
+      - Beacon

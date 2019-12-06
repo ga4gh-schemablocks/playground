@@ -1,0 +1,227 @@
+$schema": http://json-schema.org/draft-07/schema#
+"$id": https://schemablocks.org/schemas/ga4gh/BeaconVariant/v0.0.1
+
+title: BeaconVariant
+
+meta:
+  contributors:
+    - description: "GA4GH Data Working Group"
+    - description: "ELIXIR Beacon team"
+    - description: "Michael Baudis"
+      id: "orcid:0000-0002-9903-4248"
+  provenance:
+    - description: "Original GA4GH schema"
+      id: 'https://github.com/ga4gh/ga4gh-schemas/blob/master/src/main/proto/ga4gh/variants.proto#L145'
+  used_by:
+    - description: "Beacon, in modified form as basis for query model"
+      id: 'https://github.com/ga4gh-beacon/specification/blob/master/beacon.yaml'
+    - description: "Progenetix database schema (Beacon+ backend)"
+      id: 'https://github.com/progenetix/schemas/tree/master/main/yaml'
+  sb_status: playground
+
+description: |
+  The document describes attributes of the _variant_ object. In its current 
+  implementation, _variant_ (and related genomic objects such as _callset_) represent 
+  extended versions of the original, VCF-derived GA4GH schema.
+  Compared to the VCF model it was derived from, this schema includes some
+  changes:
+
+  * the definition of an optional `end` position, to support e.g. structural variants 
+  w/o definition of the sequence
+  * the use of arrays for `start` and `end` positions, to describe positions with 
+  uncertain exact location (again, important for structural variants and data derived 
+  from array based experiments)
+      - this corresponds to the use of `CIPOS` and `CIEND` intervals around `pos` and 
+      `END` positions ibn VCF, where the begin of e.g. the `pos` interval is given by 
+      `pos - CIPOS[0]` and the end of the `pos` estimate by `pos + CIPOS[0]`
+  
+  This format may be superseeded or augmented based on current developments in the 
+  GA4GH::GKS work stream.
+
+type: object
+
+properties:
+
+  id:
+    description: |
+      * The local-unique identifier of this variant (referenced as "variant_id").
+      * Optional
+    type: string
+    examples:
+      - 'amvar-8754-7751-1119-8539'
+
+  digest:
+    description: |
+      * Concatenated unique specific elements of the variant.
+      * Optional, convenience element to derive unique variants in "individual variant 
+      from callset" storage systems
+    type: string
+    examples:
+      - '4:12282-46465:DEL'
+
+  callset_id:
+    description: |
+      * the identifier ("callset.id") of the callset (i.e. "VCF column") this variant is 
+      part of
+      * optional, if another provenance method is provided (e.g. if variants are nested 
+      with the parental object as in a Phenopacket)
+    type: string
+    examples:
+      - 'PGX_AM_CS_GSM1690424'
+
+  biosample_id:
+    description: |
+      The optional identifier ("biosample.id") of the biosample this variant was reported 
+      from. This is a shortcut to using the variant -> callset -> biosample chaining.
+    type: string
+    examples:
+      - 'pgx-bs-987647'
+
+  reference_name:
+    description: |
+      Reference name (chromosome). Accepting values 1-22, X, Y.
+    type: string
+    examples:
+      - '8'
+
+  start:
+    description: |
+      array of 1 or 2 (for imprecise end position of structural variant) integers
+    type: array
+    items: int64
+    examples:
+      - - 20867740
+
+  mate_name:
+    description: |
+      Mate name (chromosome) for fusion (BND) events; otherwise left empty. 
+      Accepting values 1-22, X, Y.
+      Compared to the VCF specification, where a fusion is defined from 2 
+      BND variants and verbose annotations for describing the fusion partners, 
+      the use of the `mate_name` attribute allows to treat fusion events as 
+      single "variant". Conventions: 
+      
+      * the lower sorted chromosome (e.g. "8") is annotated for `reference_name` 
+      and the higher (e.g. "14") becomes the `mate_name`
+      * if a `mate_name` parameter exists, the `end` position refers to this
+      * for intrachromosomal events, `mate_name` is identical to 
+      `reference_name` and the higher base values are assigned to `end`
+    type: string
+    examples:
+      - '14'
+
+  end:
+    description: |
+      array of 0 (for presise sequence variants), 1 or 2 (for imprecise end position of 
+      structural variant) integers
+    type: array
+    items: int64
+    examples:
+      - - 21977798
+        - 21978106
+    queries:
+      - query: 'db.variants.find( { "reference_name" : "9",  "variant_type" : "DEL", 
+      "start" : { $lteq : 21975098 }, "end" : { $gteq : 21967753 } } )'
+        description: |
+          This example query will return all deletion variants with any overlap 
+          of the CDKN2A CDR (GRCh38 positions).
+
+  reference_bases:
+    description: |
+      one or more bases at start position in the reference genome, which have been 
+      replaced by the `alternate_bases` value
+    type: string
+    pattern: '^[ACGTN]+$'
+    examples:
+      - 'G'
+
+  alternate_bases:
+    description: |
+      * one or more single or multi-base sequences, replacing the  the 
+      `reference_bases` value
+      * more than one `alternate_bases` values is used for differing 
+      replacements involving the different alleles
+      * used for precise variants; not used for structural (e.g. DUP, DEL) 
+      alterations
+    type: array
+    items: string
+    pattern: '^[ACGTN]+$'
+    examples:
+      - - 'C'
+      - - 'TA'
+        - 'TAA'
+  genotype:
+    description: |
+      * list of strings, using the natural index of the corresponding 
+      `alternate_bases` values for the (optionally phased) indication of 
+      observed allelic replacements
+      * the dot `.` value is used for indicating the reference allele or unknown 
+      value
+      
+      The genotype parameter is largely redundant for single-sample variant 
+      annotations in contrast to VCF, where the `alternat_bases` calls have to 
+      be indicated for multiple callsets.
+    type: array
+    items: string
+    examples:
+      - - '1'
+        - '.'
+      - - '2'
+        - '1'
+
+  variant_type:
+    description: |
+      the variant type in case of a named (structural) variant (e.g. DUP, DEL, BND ...)
+    type: string
+    examples:
+      - 'DEL'
+  info:
+    type: object
+    description: |
+      additional variant information, as defined in the example and accompanying 
+      documentation
+    examples:
+      - cnv_value: -0.294
+        cnv_length: 1205290
+
+required:
+  - reference_name
+  - start
+  - oneof:
+    - alternate_bases
+    - variant_type
+
+examples:
+  - id: '5be1840772798347f0ed9e8b'
+    digest: '2:203420136:A>AC,ACC'
+    callset_id: 'DIPG_CS_0290'
+    reference_name: '2'
+    start: [203420136]
+    reference_bases: 'A'
+    alternate_bases: 
+      - 'AC'
+      - 'ACC'
+    genotype:
+      - '2'
+      - '1'
+  - id: 'structdb-var-123456789'
+    digest: '8,14:20867740-21977798,21978106:BND'
+    callset_id: 'structdb-cs-nhl-0009876'
+    biosample_id: 'fcl-bs-0099615'
+    reference_name: '8'
+    start: [20867740]
+    mate_name: '14'
+    end: [21977798, 21978106]
+    reference_bases: 'N'
+    variant_type: 'BND'
+  - id: 'structdb-var-123456790'
+    digest: '6:63450000,63550000-63450000,63550000:DEL'
+    callset_id: 'structdb-cs-nhl-0009876'
+    reference_name: '6'
+    start: [63450000,63550000]
+    end: [63450000,63550000]
+    reference_bases: 'N'
+    variant_type: 'DEL'
+    info:
+      cnv_value: -0.294
+      cnv_length: 85500000

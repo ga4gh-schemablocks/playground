@@ -1,0 +1,35 @@
+info:
+  title: |
+    GA4GH SchemaBlocks - Info
+  description: |
+    Prototype objects definitions.
+  version: '2019-01-11'
+definitions:
+  Info:
+    description: |
+      Additional information regarding the object in reference.
+    status: proposed
+    properties:
+      description:
+        description: an optional free-text annotation about the object
+        type: string
+        example: "The base length of the called segment."
+      type:
+        description: type of the value; optional
+        type: string
+        example: 'number'
+      format:
+        description: format of the value; optional
+        type: string
+        example: 'int64'
+      value:
+        description: the value in a format correstponding to type
+        example: 1503320
+    examples:
+      - description: 'The base length of the called segment'
+        type: 'number'
+        format: 'int64'
+        value: 1503320
+    used_by:
+      - phenopackets
+      - Beacon
