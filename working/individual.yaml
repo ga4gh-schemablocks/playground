@@ -68,7 +68,7 @@ definitions:
               id : "cellosaurus:CVCL_0312"
               label : "HOS"
         queries:
-          - query: 'db.individuals.find( { "external_references.type.id" : "pubmed:17440070" } )'
+          - query: 'db.individuals.find( { "external_references.type.id" : "PMID:17440070" } )'
             description: |
               The query will return all individuals which have been reported in experiments in this publication.
       biocharacteristics:
