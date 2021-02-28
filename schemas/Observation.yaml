@@ -1,0 +1,81 @@
+"$schema": http://json-schema.org/draft-07/schema#
+"$id": https://schemablocks.org/schemas/ga4gh/Observation/v0.0.1
+title: Observation
+meta:
+  contributors:
+    - description: "GA4GH Search Team"
+    - description: "Jonathan Fuerth"
+      id: "orcid:0000-0001-9135-2164"
+  used_by:
+    - description: "Super Simple Study Schema"
+  sb_status: proposed
+description: |
+  Attributes relating to an observation, assessment, or sample collection in any kind of medical study.
+type: object
+properties:
+  id:
+    description: |
+      Uniquely identifies the observation, assessment, or sample collected.
+    type: string
+    unique_identifier: true
+    examples:
+      - "1837603"
+      - "obs00053"
+      - "sam55447.6"
+  collection_date:
+    description: |
+      The date the observation was made or the sample was collected.
+    type: string
+    oneOf:
+      - format: date-time
+        examples:
+          - 2000-04-15T14:23:06-04:00
+          - 2000-04-15T18:23:06+00:00
+      - format: date
+        examples:
+          - 2000-04-15
+  geo_location:
+    "$ref": https://schemablocks.org/schemas/ga4gh/v0.0.1/GeoLocation.json
+    description: |
+      The geographical location where the observation, assessment, or sample collection took place.
+  collected_by:
+    description: |
+      The role of the person who made the observation or collected the sample.
+    oneOf:
+      - "$ref": https://schemablocks.org/schemas/sb-phenopackets/OntologyClass/v1.0.0
+      - type: string
+        description: Free text description of the role
+    examples:
+      - { "id": "NCIT:C51863", "label": "Research Clinician" }
+      - { "id": "NCIT:C51864", "label": "Research Nurse" }
+      - { "id": "NCIT:C51798", "label": "Admitting Physician" }
+      - X-Ray technician
+      - Lab phlebotomist
+      - Self
+
+  # consider breaking out into subclass "TissueSample"
+  tissue_type:
+    description: |
+      The type of sample that was collected. Only makes sense if this observation is a sample collection.
+    type: string
+
+  # consider breaking out into subclass "MedicalImaging"
+  imaging_procedure:
+    description: |
+      The type of imaging that was performed. Only makes sense if this observation is an imaging procedure.
+    type: string
+    examples:
+      - X-Ray
+      - CT Scan
+      - Ultrasound
+
+  # consider breaking out into subclass "PhenotypicAssessment"
+  assessment_type:
+    description: |
+      The type of assessment that was performed.
+    type: string
+    examples:
+      - Physical examination
+      - Structured questionnaire
+      - Interview
+      - Observation
