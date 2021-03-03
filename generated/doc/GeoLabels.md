@@ -1,6 +1,6 @@
 
 <div id="schema-header-title">
-  <h2>GeoLocation <span id="schema-header-title-project">playground <a href="https://github.com/ga4gh-schemablocks/playground" target="_BLANK">&nearr;</a></span> </h2>
+  <h2>GeoLabels <span id="schema-header-title-project">playground <a href="https://github.com/ga4gh-schemablocks/playground" target="_BLANK">&nearr;</a></span> </h2>
 </div>
 
 <table id="schema-header-table">
@@ -41,11 +41,11 @@
     </td>
   </tr>
   <tr>
-    <th>Source (v2021-03-03)</th>
+    <th>Source (v2022-03-03)</th>
     <td>
       <ul>
-        <li><a href="current/GeoLocation.json" target="_BLANK">raw source [JSON]</a></li>
-        <li><a href="https://github.com/ga4gh-schemablocks/playground/blob/master/schemas/GeoLocation.yaml" target="_BLANK">Github</a></li>
+        <li><a href="current/GeoLabels.json" target="_BLANK">raw source [JSON]</a></li>
+        <li><a href="https://github.com/ga4gh-schemablocks/playground/blob/master/schemas/GeoLabels.yaml" target="_BLANK">Github</a></li>
       </ul>
     </td>
   </tr>
@@ -56,5 +56,5 @@
 </div>
 
   
-__Description:__ A GeoLocation object represents a geographic location formatted as a *GeoJSON feature*. The format is compatible with RFC 7946, while currently limiting its scope to features of type "Point". Also, the schema defines some optional parameters compatible with the GeoJSON feature *properties* wrapper object. Examples could be:   * an address, e.g. of a lab performing an analysis * provenance of an individual, obfuscated to a larger order  administrative entity (Suffolk, U.K.) * a lat/long/alt position where an environmental sample was collected  
+__Description:__ GeoLabels represent an instance of the GeoJSON `properties` object. The parameters provide additional information for the interpretation of the location parameters, and also serve for optional "sanity checks" off the corresponding latitude, longitude (, altitude).
 

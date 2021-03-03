@@ -1,6 +1,6 @@
 "$schema": https://json-schema.org/draft/2020-12/schema
-"$id": https://schemablocks.org/schemas/playground/GeoLocation/v2021-03-03
-title: GeoLocation
+"$id": https://schemablocks.org/schemas/playground/GeoJSONgeometry/v2021-03-03
+title: GeoJSONgeometry
 meta:
   contributors:
     - description: "GA4GH Metadata Task Team"
@@ -20,17 +20,17 @@ meta:
       id: 'https://github.com/progenetix/schemas/'
   sb_status: proposed
 description: >
-  A GeoLocation object represents a geographic location formatted as a *GeoJSON feature*. The format is compatible with RFC 7946, while currently limiting its scope to features of type "Point". Also, the schema defines some optional parameters compatible with the GeoJSON feature *properties* wrapper object.
-  Examples could be:  
-  * an address, e.g. of a lab performing an analysis
-  * provenance of an individual, obfuscated to a larger order 
-  administrative entity (Suffolk, U.K.)
-  * a lat/long/alt position where an environmental sample was collected  
+  The geographic point object uses the default units from the [DCMI point scheme](http://dublincore.org/documents/dcmi-point/) and avoids optional representation in non-standard units.
 properties:
   type:
     type: string
-    value: "Feature"
-  geometry:
-    "$ref": GeoJSONgeometry.yaml#/properties
-  properties:
-    "$ref": GeoLabels.yaml#/properties
+    value: "Point"
+  coordinates:
+    description: >
+      An array of 2 (longitude, latitude) or 3 (longitude, latitude, altitude) values.
+    type: array
+    items:
+      type: number
+      format: float
+    minItems: 2
+    maxItems: 3

@@ -1,7 +1,7 @@
 {
-   "$id" : "https://schemablocks.org/schemas/playground/GeoLocation/v2021-03-03",
+   "$id" : "https://progenetix.org/services/schemas/GeoJSONgeometry/v2021-01-23",
    "$schema" : "https://json-schema.org/draft/2020-12/schema",
-   "description" : "A GeoLocation object represents a geographic location formatted as a *GeoJSON feature*. The format is compatible with RFC 7946, while currently limiting its scope to features of type \"Point\". Also, the schema defines some optional parameters compatible with the GeoJSON feature *properties* wrapper object. Examples could be:   * an address, e.g. of a lab performing an analysis * provenance of an individual, obfuscated to a larger order  administrative entity (Suffolk, U.K.) * a lat/long/alt position where an environmental sample was collected  \n",
+   "description" : "The geographic point object uses the default units from the [DCMI point scheme](http://dublincore.org/documents/dcmi-point/) and avoids optional representation in non-standard units.\n",
    "examples" : [],
    "meta" : {
       "contributors" : [
@@ -40,17 +40,21 @@
       ]
    },
    "properties" : {
-      "geometry" : {
-         "$ref" : "GeoJSONgeometry.yaml#/properties"
-      },
-      "properties" : {
-         "$ref" : "GeoLabels.yaml#/properties"
+      "coordinates" : {
+         "description" : "An array of 2 (longitude, latitude) or 3 (longitude, latitude, altitude) values.\n",
+         "items" : {
+            "format" : "float",
+            "type" : "number"
+         },
+         "maxItems" : "3",
+         "minItems" : "2",
+         "type" : "array"
       },
       "type" : {
          "type" : "string",
-         "value" : "Feature"
+         "value" : "Point"
       }
    },
-   "title" : "GeoLocation"
+   "title" : "GeoJSONgeometry"
 }
 
