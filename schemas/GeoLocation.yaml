@@ -1,5 +1,5 @@
 "$schema": https://json-schema.org/draft/2020-12/schema
-"$id": https://schemablocks.org/schemas/playground/GeoLocation/v2021-03-03
+"$id": https://schemablocks.org/schemas/playground/GeoLocation/v2021-03-04
 title: GeoLocation
 meta:
   contributors:
@@ -26,6 +26,7 @@ description: >
   * provenance of an individual, obfuscated to a larger order 
   administrative entity (Suffolk, U.K.)
   * a lat/long/alt position where an environmental sample was collected  
+type: object
 properties:
   type:
     type: string

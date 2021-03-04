@@ -1,5 +1,5 @@
 "$schema": https://json-schema.org/draft/2020-12/schema
-"$id": https://schemablocks.org/schemas/playground/GeoLabels/v2022-03-03
+"$id": https://schemablocks.org/schemas/playground/GeoLabels/v2022-03-04
 title: GeoLabels
 meta:
   contributors:
@@ -21,6 +21,7 @@ meta:
   sb_status: proposed
 description: >
   GeoLabels represent an instance of the GeoJSON `properties` object. The parameters provide additional information for the interpretation of the location parameters, and also serve for optional "sanity checks" off the corresponding latitude, longitude (, altitude).
+type: object
 properties:
   label:
     type: string

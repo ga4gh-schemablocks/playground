@@ -41,7 +41,7 @@
     </td>
   </tr>
   <tr>
-    <th>Source (v2021-03-03)</th>
+    <th>Source (v2021-03-04)</th>
     <td>
       <ul>
         <li><a href="current/GeoJSONgeometry.json" target="_BLANK">raw source [JSON]</a></li>
@@ -56,5 +56,57 @@
 </div>
 
   
+__Type:__ object  
 __Description:__ The geographic point object uses the default units from the [DCMI point scheme](http://dublincore.org/documents/dcmi-point/) and avoids optional representation in non-standard units.
+
+### Properties
+
+<table id="schema-properties-table">
+  <tr>
+    <th>Property</th>
+    <th>Type</th>
+  </tr>
+  <tr>
+    <th>coordinates</th>
+    <td>array of "number"</td>
+  </tr>
+  <tr>
+    <th>type</th>
+    <td>string</td>
+  </tr>
+
+</table>
+
+
+#### coordinates
+
+* type: array of "number"
+
+An array of 2 (longitude, latitude) or 3 (longitude, latitude, altitude) values.
+
+
+##### `coordinates` Value Examples  
+
+```
+[
+   47.37,
+   8.55
+]
+```
+```
+[
+   86.925026,
+   27.98785,
+   8848.86
+]
+```
+
+#### type
+
+* type: string
+* value: Point  
+
+
+
+
 
