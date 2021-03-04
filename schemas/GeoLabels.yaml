@@ -13,8 +13,8 @@ meta:
   provenance:
     - description: "Developer branch of original GA4GH schema"
       id: 'https://github.com/ga4gh-metadata/metadata-schemas/blob/master/schemas/shared.proto#L60'
-    - description: "Progenetix"
-      id: 'https://github.com/progenetix/schemas/'
+    - description: "IETF GeoJSON pecification"
+      id: 'https://tools.ietf.org/html/rfc7946'
   used_by:
     - description: "Progenetix database schema (Beacon+ backend)"
       id: 'https://github.com/progenetix/schemas/'
@@ -28,7 +28,7 @@ properties:
     examples:
       - Heidelberg, Germany
       - Gainesville, United States of America
-      - Zürich, Switzerland
+      - Zurich, Switzerland
       - 'Str Marasesti 5, 300077 Timisoara, Romania'
   city:
     type: string
