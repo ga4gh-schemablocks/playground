@@ -1,0 +1,27 @@
+"$schema": http://json-schema.org/draft-07/schema#
+"$id": "https://schemablocks.org/schemas/playground/current/BloodGroup.json",
+title: ABO Blood Group
+meta:
+  contributors:
+    - description: "GA4GH Search Team"
+    - description: "Jonathan Fuerth"
+      id: "orcid:0000-0001-9135-2164"
+  used_by:
+    - description: "Example schema in Data Connect specification"
+  sb_status: proposed
+description: |
+  An OntologyReference constrained to ABO Blood Groups
+allOf:
+  - "$ref": "https://schemablocks.org/schemas/sb-phenopackets/v1.0.0/OntologyClass.json#/properties"
+  - properties:
+      id:
+        description: Subtype of HP:0032224 (ABO Blood Group)
+        oneOf:
+          - const: HP:0032442
+            title: O
+          - const: HP:0032370
+            title: A
+          - const: HP:0032440
+            title: B
+          - const: HP:0032441
+            title: AB
