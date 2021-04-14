@@ -21,9 +21,9 @@ schema_repos:
     schema_dir_name: schemas
     out_dir_name: generated
     target_doc_dirname: playground
-#    include_matches: [ ]
-#    exclude_matches: [ ]
-#    meta_header_filename: ""
+    include_matches: [ ]
+    exclude_matches: [ ]
+    meta_header_filename: ""
 out_dirnames:
   json: json
   markdown: doc
