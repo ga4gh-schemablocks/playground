@@ -1,5 +1,5 @@
 "$schema": https://json-schema.org/draft/2020-12/schema
-"$id": https://schemablocks.org/schemas/playground/GeoJSONgeometry/v2021-03-04
+"$id": https://schemablocks.org/schemas/playground/GeoJSONgeometry/v2021-04-14
 title: GeoJSONgeometry
 meta:
   contributors:
@@ -15,6 +15,8 @@ meta:
       id: 'https://github.com/ga4gh-metadata/metadata-schemas/blob/master/schemas/shared.proto#L60'
     - description: "IETF GeoJSON pecification"
       id: 'https://tools.ietf.org/html/rfc7946'
+    - description: "Progenetix"
+      id: 'https://github.com/progenetix/schemas/'
   used_by:
     - description: "Progenetix database schema (Beacon+ backend)"
       id: 'https://github.com/progenetix/schemas/'

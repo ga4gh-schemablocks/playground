@@ -1,5 +1,5 @@
 "$schema": https://json-schema.org/draft/2020-12/schema
-"$id": https://schemablocks.org/schemas/playground/GeoLocation/v2021-03-04
+"$id": https://schemablocks.org/schemas/playground/GeoLocation/v2021-04-14
 title: GeoLocation
 meta:
   contributors:
@@ -11,6 +11,8 @@ meta:
     - description: "Melanie Courtot"
       id: "orcid:0000-0002-9551-6370"
   provenance:
+    - description: "IETF GeoJSON pecification"
+      id: 'https://tools.ietf.org/html/rfc7946'
     - description: "Developer branch of original GA4GH schema"
       id: 'https://github.com/ga4gh-metadata/metadata-schemas/blob/master/schemas/shared.proto#L60'
     - description: "Progenetix"
@@ -32,6 +34,6 @@ properties:
     type: string
     value: "Feature"
   geometry:
-    "$ref": GeoJSONgeometry.yaml#/properties
+    $ref: GeoJSONgeometry.yaml#/properties
   properties:
-    "$ref": GeoLabels.yaml#/properties
+    $ref: GeoLabels.yaml#/properties

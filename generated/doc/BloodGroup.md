@@ -18,7 +18,7 @@
 
 <!--more-->
 <tr><th>Contributors</th><td><ul>
-<li>GA4GH Search Team</li>
+<li>GA4GH Data Connect Team</li>
 <li><a href="https://orcid.org/0000-0001-9135-2164">Jonathan Fuerth</a></li>
 </ul></td></tr>
 <tr><th>Source (v2021-04-13)</th><td><ul>
