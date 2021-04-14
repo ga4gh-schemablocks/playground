@@ -12,7 +12,8 @@ meta:
     - description: "Example schema in Data Connect specification"
   sb_status: proposed
 description: |
-  An OntologyReference constrained to ABO Blood Groups
+  An OntologyReference constrained to ABO Blood Groups.
+  TODO: A method to constrain the value space by design, not only through documentation
 type: object
 properties:
     allOf:
@@ -22,11 +23,11 @@ properties:
     description: Subtype of HP:0032224 (ABO Blood Group)
     "$ref": "https://schemablocks.org/schemas/sb-phenopackets/v1.0.0/OntologyClass.json#/properties"
     examples:
-     - const: HP:0032442
-       title: O
-     - const: HP:0032370
-       title: A
-     - const: HP:0032440
-       title: B
-     - const: HP:0032441
-       title: AB
+     - id: HP:0032442
+       label: O
+     - id: HP:0032370
+       label: A
+     - id: HP:0032440
+       label: B
+     - id: HP:0032441
+       label: AB
